@@ -1125,6 +1125,18 @@ html[data-theme="light"] .footer {
   .inline-email-status {
     left: 0.9rem;
   }
+
+  .theme-menu-panel {
+    right: -0.5rem;
+    top: 2.6rem;
+    min-width: 160px;
+    padding: 0.5rem 0.4rem;
+  }
+
+  .theme-menu-panel button {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
 }
 
 @media (max-width: 480px) {

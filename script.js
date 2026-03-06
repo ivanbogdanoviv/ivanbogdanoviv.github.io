@@ -1,10 +1,8 @@
-// Footer year
 const yearEl = document.getElementById("year");
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
-// Email copy logic
 const emailLink = document.getElementById("inline-email-address");
 const emailCopyBtn = document.getElementById("inline-email-copy");
 const emailStatus = document.getElementById("inline-email-status");
@@ -37,7 +35,6 @@ if (emailLink && emailCopyBtn && emailStatus && emailCopyText) {
   emailCopyBtn.addEventListener("click", copyEmail);
 }
 
-// Scroll reveal animations
 const revealElements = document.querySelectorAll(".reveal");
 
 if ("IntersectionObserver" in window) {
@@ -58,7 +55,6 @@ if ("IntersectionObserver" in window) {
   revealElements.forEach((el) => el.classList.add("visible"));
 }
 
-// Staggered reveal for cards
 const cardGroups = document.querySelectorAll(".cards");
 
 if ("IntersectionObserver" in window) {
@@ -90,23 +86,17 @@ if ("IntersectionObserver" in window) {
   });
 }
 
-// Theme menu: light / dark / system
 const htmlEl = document.documentElement;
 const themeMenu = document.querySelector(".theme-menu");
 const themeMenuToggle = document.querySelector(".theme-menu-toggle");
 const themeMenuPanel = document.querySelector(".theme-menu-panel");
-const themeButtons = document.querySelectorAll(".theme-menu-panel [data-theme-option]");
+const themeButtons = document.querySelectorAll(
+  ".theme-menu-panel [data-theme-option]"
+);
 const themeIcon = document.getElementById("theme-icon");
 
-// Theme-dependent icons (Git / GitHub etc.)
 function updateThemeIcons(theme) {
-  let effectiveTheme = theme;
-  if (theme === "system") {
-    effectiveTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  }
-  const isLight = effectiveTheme === "light";
+  const isLight = theme === "light";
 
   document
     .querySelectorAll("[data-icon-dark][data-icon-light]")
@@ -139,11 +129,11 @@ function applyTheme(theme) {
 function getPreferredTheme() {
   try {
     const stored = localStorage.getItem("theme-preference");
-    if (stored === "light" || stored === "dark" || stored === "system") {
+    if (stored === "light" || stored === "dark") {
       return stored;
     }
   } catch (e) {}
-  return "system";
+  return "light";
 }
 
 applyTheme(getPreferredTheme());
@@ -175,16 +165,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-if (mediaQuery && typeof mediaQuery.addEventListener === "function") {
-  mediaQuery.addEventListener("change", () => {
-    if (getPreferredTheme() === "system") {
-      applyTheme("system");
-    }
-  });
-}
-
-// Scroll-to-top button
 const scrollTopBtn = document.getElementById("scroll-top");
 
 if (scrollTopBtn) {
@@ -201,7 +181,6 @@ if (scrollTopBtn) {
   });
 }
 
-// Typing effect in hero
 const typingPhrases = [
   "Windows 11 & Windows Server 2025 labs.",
   "small networks that just work.",
