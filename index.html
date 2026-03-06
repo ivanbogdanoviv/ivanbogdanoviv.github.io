@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="UTF-8">
+  <title>Ivan Bogdanov Ivanov | IT & Automation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="IT support, networking and automation help in Toronto. Windows & Linux, CCNA fundamentals, Python & Bash, AI workflows, and modern web tooling.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" href="img/ibitech-logo.png"
+</head>
+<body>
+  <header class="nav">
+    <div class="logo">IBITech.</div>
+    <nav>
+      <a href="#hero">Home</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="theme-menu">
+      <button
+        type="button"
+        class="theme-menu-toggle"
+        aria-label="Toggle color theme menu"
+      >
+        <span id="theme-icon" class="theme-icon">☾</span>
+      </button>
+
+      <div class="theme-menu-panel" aria-label="Color theme options">
+        <button type="button" data-theme-option="light">
+          <span class="theme-menu-option-icon">☼</span>
+          <span>Light</span>
+        </button>
+        <button type="button" data-theme-option="dark">
+          <span class="theme-menu-option-icon">☾</span>
+          <span>Dark</span>
+        </button>
+        <button type="button" data-theme-option="system">
+          <span class="theme-menu-option-icon">◎</span>
+          <span>System</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Social sidebar -->
+  <aside class="social-sidebar" aria-label="Social links">
+    <a href="https://www.linkedin.com/in/ivan-bogdanov-ivanov/" target="_blank" rel="noopener noreferrer">
+      <img src="img/icon-linkedin.png" alt="LinkedIn">
+    </a>
+    <a href="https://github.com/ivanbogdanoviv" target="_blank" rel="noopener noreferrer">
+      <img src="img/icon-github.png" alt="GitHub">
+    </a>
+  </aside>
+
+  <!-- HERO -->
+  <section id="hero" class="hero snap-section">
+    <div class="hero-inner">
+      <div class="hero-text reveal">
+        <p class="hero-kicker">IT support • Networking • Automation</p>
+        <h1>Hi, I’m Ivan. I keep your tech fast, <span class="hero-highlight">reliable</span> and stress‑free.</h1>
+        <p class="hero-subtitle">
+          Computer Systems Technician in Toronto, available for part‑time IT roles, internships and freelance projects.
+          I fix problems, secure setups and automate boring tasks.
+        </p>
+
+        <div class="hero-typing">
+          <span class="hero-typing-label">I help with</span>
+          <span id="typing-text" class="hero-typing-text"></span>
+          <span class="typing-cursor">|</span>
+        </div>
+
+        <div class="hero-buttons">
+          <a href="#contact" class="btn primary">Book a quick call</a>
+          <a href="#projects" class="btn secondary">See what I’ve built</a>
+        </div>
+
+        <div class="hero-tags">
+          <span>IT Support</span>
+          <span>Windows & Linux</span>
+          <span>Networking (CCNA)</span>
+          <span>Python & Bash</span>
+          <span>Web (HTML, CSS, JS)</span>
+          <span>AI Workflows</span>
+        </div>
+      </div>
+
+      <div class="hero-panel reveal">
+        <div class="hero-card">
+          <p class="hero-card-title">Live System Snapshot</p>
+          <ul class="hero-card-list">
+            <li><span>Status</span><span class="badge badge-ok">All systems stable</span></li>
+            <li><span>Current focus</span><span>IT support & automation</span></li>
+            <li><span>Location</span><span>Toronto, Canada</span></li>
+            <li><span>Available</span><span>Part‑time & remote</span></li>
+          </ul>
+          <a href="#contact" class="hero-card-cta">Tell me what’s broken →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <!-- SERVICES -->
+    <section id="services" class="section snap-section reveal">
+      <div>
+        <h2>What I Can Do For You</h2>
+        <p class="section-intro">
+          Think of me as your on‑call tech person: I fix issues, document what I did,
+          and leave you with a setup you understand.
+        </p>
+        <div class="cards">
+          <article class="card interactive-card">
+            <div class="card-pill">Support</div>
+            <h3>Fix & Tune Your Devices</h3>
+            <p>
+              Clean and optimize slow machines, organize storage, fix annoying popups, set up backups,
+              and make sure your files are safe but easy to find.
+            </p>
+            <p class="card-meta">Windows 10, storage, permissions, basic PowerShell, drivers.</p>
+          </article>
+
+          <article class="card interactive-card">
+            <div class="card-pill">Networking</div>
+            <h3>Make Your Network Reliable</h3>
+            <p>
+              Get rid of “unidentified network” and random disconnects. I configure Wi‑Fi, routers,
+              IP addresses and basic firewall rules so everything just works.
+            </p>
+            <p class="card-meta">Routers, switches, IP addressing, subnetting, Packet Tracer labs.</p>
+          </article>
+
+          <article class="card interactive-card">
+            <div class="card-pill">Automation</div>
+            <h3>Automate the Boring Stuff</h3>
+            <p>
+              Small Python or Bash scripts and AI workflows that rename files, process reports,
+              send alerts or answer common questions for you automatically.
+            </p>
+            <p class="card-meta">Python, Bash, CSV/SQLite, AI tools, webhooks.</p>
+          </article>
+
+          <article class="card interactive-card">
+            <div class="card-pill">Web</div>
+            <h3>Simple, Clean Websites</h3>
+            <p>
+              Landing pages and personal sites that look good on phones and desktops,
+              are easy to update, and load fast.
+            </p>
+            <p class="card-meta">HTML, CSS, vanilla JavaScript, modern hosting platforms.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section section-alt snap-section reveal">
+      <div>
+        <h2>Things I’ve Built & Tested</h2>
+        <p class="section-intro">
+          A mix of labs, experiments and real problems I solved. These are the kinds of things I can do for you.
+        </p>
+
+        <div class="cards cards-projects">
+          <article class="card interactive-card">
+            <h3>GitHub Lab & Automation Playground</h3>
+            <p>
+              Collection of React apps, CI/CD experiments, Python & Bash scripts and system‑automation tools I use
+              to learn and speed up my own work.
+            </p>
+            <p class="card-meta">GitHub, Git, Node.js, CI workflows, scripting.</p>
+            <a href="https://github.com/ivanbogdanoviv" target="_blank" class="link">Browse repositories →</a>
+          </article>
+
+          <article class="card interactive-card">
+            <h3>Home & Lab Networks</h3>
+            <p>
+              Packet Tracer topologies with routers, switches, VLANs and ACLs, plus real “why is my Wi‑Fi dead”
+              troubleshooting for friends and classmates.
+            </p>
+            <p class="card-meta">Cisco fundamentals, IP addressing, DHCP, basic ACLs.</p>
+            <a href="#contact" class="link">Ask for a topology walkthrough →</a>
+          </article>
+
+          <article class="card interactive-card">
+            <h3>Automation & AI Demos</h3>
+            <p>
+              Workflows that connect forms, AI assistants and notifications to reply automatically,
+              summarize messages or generate simple reports.
+            </p>
+            <p class="card-meta">AI tools, automation platforms, email/SMS, webhooks.</p>
+            <a href="#contact" class="link">Request a live demo →</a>
+          </article>
+
+          <article class="card interactive-card">
+            <h3>Design & Branding Assets</h3>
+            <p>
+              Visual kits for student projects and small brands: banners, simple logos,
+              social posts and cleaned up presentations.
+            </p>
+            <p class="card-meta">Adobe tools, layout, export‑ready assets.</p>
+            <a href="#contact" class="link">See a mini‑portfolio →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section snap-section reveal">
+      <div>
+        <h2>Skills & Tools</h2>
+        <p class="section-intro">
+          These are the tools I actually use when troubleshooting, building labs and scripting solutions.
+        </p>
+
+        <div class="skills-icons">
+          <img src="img/icon-windows.png" alt="Windows administration">
+          <img src="img/icon-linux-terminal.png" alt="Linux and Bash">
+          <img src="img/icon-network.png" alt="Networking fundamentals">
+          <img src="img/icon-database.png" alt="Databases">
+          <img src="img/icon-code.png" alt="HTML, CSS, JavaScript">
+          <img src="img/icon-git.png" alt="Git">
+          <img src="img/icon-design.png" alt="Design tools">
+        </div>
+
+        <div class="about-grid">
+          <div>
+            <h3>Support & Systems</h3>
+            <ul>
+              <li>Windows 10 installation, storage (VHD, storage pools), permissions</li>
+              <li>Linux essentials and Bash scripting</li>
+              <li>User and group management, NTFS permissions and inheritance</li>
+              <li>Diagnosing slow systems, drivers and application issues</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Networking & Security</h3>
+            <ul>
+              <li>IP addressing, subnetting, VLSM, ACL concepts</li>
+              <li>Packet Tracer labs with routers, switches, VLANs and pings</li>
+              <li>Troubleshooting Ethernet, DHCP and Wi‑Fi issues</li>
+              <li>Basic hardening and security best practices</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="about-grid skills-second">
+          <div>
+            <h3>Automation & DevOps</h3>
+            <ul>
+              <li>Python scripting for file processing and reports</li>
+              <li>Bash scripting and shell workflows on Linux</li>
+              <li>Git/GitHub, CI/CD experiments and automation mindset</li>
+              <li>Using AI tools to speed up repetitive work</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Web & Data</h3>
+            <ul>
+              <li>Responsive HTML & CSS layouts</li>
+              <li>JavaScript and DOM manipulation for interactivity</li>
+              <li>SQL / SQLite for simple queries and reports</li>
+              <li>Turning data and logs into clear summaries</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS / TIMELINE -->
+    <section id="process" class="section section-alt snap-section reveal">
+      <div>
+        <h2>How We Work Together</h2>
+        <p class="section-intro">
+          A simple 4‑step process so you always know what’s happening and what comes next.
+        </p>
+
+        <ol class="process-timeline">
+          <li>
+            <span class="process-step-number">1</span>
+            <div class="process-step-body">
+              <h3>Quick Call or Message</h3>
+              <p>You tell me what’s broken or what you want to build. I ask a few questions and give you a realistic next step.</p>
+            </div>
+          </li>
+          <li>
+            <span class="process-step-number">2</span>
+            <div class="process-step-body">
+              <h3>Plan & Estimate</h3>
+              <p>I outline what I’ll do, tools I’ll use, rough timing and pricing. You confirm you’re happy and we start.</p>
+            </div>
+          </li>
+          <li>
+            <span class="process-step-number">3</span>
+            <div class="process-step-body">
+              <h3>Build & Fix</h3>
+              <p>I implement the solution, keep notes and send you short updates as I go so you are never guessing.</p>
+            </div>
+          </li>
+          <li>
+            <span class="process-step-number">4</span>
+            <div class="process-step-body">
+              <h3>Walkthrough & Hand‑Off</h3>
+              <p>We test everything together. I show you how it works, what changed, and what to do if something breaks again.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact snap-section reveal">
+      <div>
+        <h2>Let’s Fix Something</h2>
+        <p class="section-intro">
+          Tell me briefly what you need help with and I’ll reply with possible options and an estimate.
+        </p>
+        <div class="contact-grid">
+          <div>
+            <h3>Direct Contact</h3>
+
+            <div class="inline-email" id="inline-email">
+              <span class="inline-email-label">Email</span>
+              <span class="inline-email-address" id="inline-email-address">
+                ivanbogdanov.ivanov@georgebrown.ca
+              </span>
+              <button
+                type="button"
+                class="inline-email-copy"
+                id="inline-email-copy"
+                aria-label="Copy email"
+              >
+                <span class="inline-email-copy-icon">✉</span>
+                <span class="inline-email-copy-text">Copy</span>
+              </button>
+            </div>
+
+            <p class="email-hint">
+              Use this email for job opportunities, IT support, or collaboration:
+              <strong>ivanbogdanov.ivanov@georgebrown.ca</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Ivan Bogdanov Ivanov. All rights reserved. · Last updated: March 2026</p>
+  </footer>
+
+  <button id="scroll-top" aria-label="Scroll to top">
+    ↑
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
