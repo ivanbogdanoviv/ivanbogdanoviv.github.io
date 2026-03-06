@@ -2,103 +2,143 @@
 <html lang="en" data-theme="system">
 <head>
   <meta charset="UTF-8">
-  <title>Ivan Bogdanov Ivanov | IT & Automation</title>
+  <title>Ivan Bogdanov Ivanov | IT, Networking & Automation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="IT support, networking and automation help in Toronto. Windows & Linux, CCNA fundamentals, Python & Bash, AI workflows, and modern web tooling.">
+  <meta
+    name="description"
+    content="IT support, networking and automation in Toronto. Windows 11, Windows Server 2025, Linux, CCNA fundamentals, Python & Bash, AI workflows, and modern web tooling."
+  >
   <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="img/ibitech-logo.png"
 </head>
 <body>
   <header class="nav">
-    <div class="logo">IBITech.</div>
-    <nav>
-      <a href="#hero">Home</a>
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="nav-inner">
+      <div class="logo">IBITech.</div>
 
-    <div class="theme-menu">
-      <button
-        type="button"
-        class="theme-menu-toggle"
-        aria-label="Toggle color theme menu"
-      >
-        <span id="theme-icon" class="theme-icon">☾</span>
-      </button>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#hero">Home</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
 
-      <div class="theme-menu-panel" aria-label="Color theme options">
-        <button type="button" data-theme-option="light">
-          <span class="theme-menu-option-icon">☼</span>
-          <span>Light</span>
+      <div class="theme-menu">
+        <button
+          type="button"
+          class="theme-menu-toggle"
+          aria-label="Toggle color theme menu"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <span id="theme-icon" class="theme-icon" aria-hidden="true">☾</span>
         </button>
-        <button type="button" data-theme-option="dark">
-          <span class="theme-menu-option-icon">☾</span>
-          <span>Dark</span>
-        </button>
-        <button type="button" data-theme-option="system">
-          <span class="theme-menu-option-icon">◎</span>
-          <span>System</span>
-        </button>
+
+        <div class="theme-menu-panel" aria-label="Color theme options">
+          <button type="button" data-theme-option="light">
+            <span class="theme-menu-option-icon" aria-hidden="true">☼</span>
+            <span>Light</span>
+          </button>
+          <button type="button" data-theme-option="dark">
+            <span class="theme-menu-option-icon" aria-hidden="true">☾</span>
+            <span>Dark</span>
+          </button>
+          <button type="button" data-theme-option="system">
+            <span class="theme-menu-option-icon" aria-hidden="true">◎</span>
+            <span>System</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
   <!-- Social sidebar -->
   <aside class="social-sidebar" aria-label="Social links">
-    <a href="https://www.linkedin.com/in/ivan-bogdanov-ivanov/" target="_blank" rel="noopener noreferrer">
-      <img src="img/icon-linkedin.png" alt="LinkedIn">
+    <a
+      href="https://www.linkedin.com/in/ivan-bogdanov-ivanov/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn profile"
+    >
+      <img src="img/icon-linkedin.png" alt="">
     </a>
-    <a href="https://github.com/ivanbogdanoviv" target="_blank" rel="noopener noreferrer">
-      <img src="img/icon-github.png" alt="GitHub">
+    <a
+      href="https://github.com/ivanbogdanoviv"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub profile"
+    >
+      <img
+        src="img/icon-github.png"
+        alt=""
+        data-icon-dark="img/icon-github.png"
+        data-icon-light="img/icon-github2.png"
+      >
     </a>
   </aside>
 
-  <!-- HERO -->
+  <!-- HERO (full-screen) -->
   <section id="hero" class="hero snap-section">
     <div class="hero-inner">
       <div class="hero-text reveal">
-        <p class="hero-kicker">IT support • Networking • Automation</p>
-        <h1>Hi, I’m Ivan. I keep your tech fast, <span class="hero-highlight">reliable</span> and stress‑free.</h1>
+        <p class="hero-eyebrow">Ivan Bogdanov Ivanov · IT & Automation</p>
+        <h1 class="hero-title">
+          I keep small networks,
+          <span class="hero-highlight">systems</span>
+          & workflows running smoothly.
+        </h1>
         <p class="hero-subtitle">
-          Computer Systems Technician in Toronto, available for part‑time IT roles, internships and freelance projects.
-          I fix problems, secure setups and automate boring tasks.
+          Computer Systems Technician student in Toronto focused on Windows 11, Windows Server 2025,
+          networking fundamentals and practical automation that removes repetitive work for students,
+          freelancers and small teams.
         </p>
 
+        <div class="hero-quick-facts">
+          <span>Based in Toronto</span>
+          <span>Open to part‑time & internships</span>
+          <span>Remote‑friendly</span>
+        </div>
+
         <div class="hero-typing">
-          <span class="hero-typing-label">I help with</span>
+          <span class="hero-typing-label">Currently doing</span>
           <span id="typing-text" class="hero-typing-text"></span>
           <span class="typing-cursor">|</span>
         </div>
 
         <div class="hero-buttons">
-          <a href="#contact" class="btn primary">Book a quick call</a>
-          <a href="#projects" class="btn secondary">See what I’ve built</a>
+          <a href="#contact" class="btn primary">Contact me by email</a>
+          <a href="#projects" class="btn ghost">View projects</a>
         </div>
 
         <div class="hero-tags">
-          <span>IT Support</span>
-          <span>Windows & Linux</span>
+          <span>Windows 11 & Server 2025</span>
+          <span>Linux & Bash</span>
           <span>Networking (CCNA)</span>
-          <span>Python & Bash</span>
+          <span>Python & Automation</span>
           <span>Web (HTML, CSS, JS)</span>
           <span>AI Workflows</span>
         </div>
       </div>
 
       <div class="hero-panel reveal">
-        <div class="hero-card">
-          <p class="hero-card-title">Live System Snapshot</p>
-          <ul class="hero-card-list">
-            <li><span>Status</span><span class="badge badge-ok">All systems stable</span></li>
-            <li><span>Current focus</span><span>IT support & automation</span></li>
-            <li><span>Location</span><span>Toronto, Canada</span></li>
-            <li><span>Available</span><span>Part‑time & remote</span></li>
-          </ul>
-          <a href="#contact" class="hero-card-cta">Tell me what’s broken →</a>
-        </div>
+        <article class="hero-card">
+          <header class="hero-card-header">
+            <div class="hero-card-dot hero-card-dot-red"></div>
+            <div class="hero-card-dot hero-card-dot-amber"></div>
+            <div class="hero-card-dot hero-card-dot-green"></div>
+          </header>
+          <div class="hero-card-body">
+            <p class="hero-card-title">Live system snapshot</p>
+            <ul class="hero-card-list">
+              <li><span>Stack</span><span>Windows / Linux / Networking</span></li>
+              <li><span>Focus</span><span>IT support & automation</span></li>
+              <li><span>Strength</span><span>Hands‑on troubleshooting</span></li>
+              <li><span>Status</span><span class="badge badge-ok">Actively looking for roles</span></li>
+            </ul>
+            <a href="#projects" class="hero-card-cta">See what I’ve broken & fixed →</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -106,7 +146,7 @@
   <main>
     <!-- SERVICES -->
     <section id="services" class="section snap-section reveal">
-      <div>
+      <div class="section-inner">
         <h2>What I Can Do For You</h2>
         <p class="section-intro">
           Think of me as your on‑call tech person: I fix issues, document what I did,
@@ -120,7 +160,7 @@
               Clean and optimize slow machines, organize storage, fix annoying popups, set up backups,
               and make sure your files are safe but easy to find.
             </p>
-            <p class="card-meta">Windows 10, storage, permissions, basic PowerShell, drivers.</p>
+            <p class="card-meta">Windows 11, Windows Server 2025, storage, permissions, basic PowerShell, drivers.</p>
           </article>
 
           <article class="card interactive-card">
@@ -158,7 +198,7 @@
 
     <!-- PROJECTS -->
     <section id="projects" class="section section-alt snap-section reveal">
-      <div>
+      <div class="section-inner">
         <h2>Things I’ve Built & Tested</h2>
         <p class="section-intro">
           A mix of labs, experiments and real problems I solved. These are the kinds of things I can do for you.
@@ -172,7 +212,9 @@
               to learn and speed up my own work.
             </p>
             <p class="card-meta">GitHub, Git, Node.js, CI workflows, scripting.</p>
-            <a href="https://github.com/ivanbogdanoviv" target="_blank" class="link">Browse repositories →</a>
+            <a href="https://github.com/ivanbogdanoviv" target="_blank" class="link" rel="noopener noreferrer">
+              Browse repositories →
+            </a>
           </article>
 
           <article class="card interactive-card">
@@ -210,19 +252,24 @@
 
     <!-- SKILLS -->
     <section id="skills" class="section snap-section reveal">
-      <div>
+      <div class="section-inner">
         <h2>Skills & Tools</h2>
         <p class="section-intro">
           These are the tools I actually use when troubleshooting, building labs and scripting solutions.
         </p>
 
-        <div class="skills-icons">
-          <img src="img/icon-windows.png" alt="Windows administration">
+        <div class="skills-icons" aria-label="Skills icons">
+          <img src="img/icon-windows.png" alt="Windows 11 and Windows Server 2025">
           <img src="img/icon-linux-terminal.png" alt="Linux and Bash">
           <img src="img/icon-network.png" alt="Networking fundamentals">
           <img src="img/icon-database.png" alt="Databases">
           <img src="img/icon-code.png" alt="HTML, CSS, JavaScript">
-          <img src="img/icon-git.png" alt="Git">
+          <img
+            src="img/icon-git.png"
+            alt="Git"
+            data-icon-dark="img/icon-git.png"
+            data-icon-light="img/icon-git2.png"
+          >
           <img src="img/icon-design.png" alt="Design tools">
         </div>
 
@@ -230,7 +277,8 @@
           <div>
             <h3>Support & Systems</h3>
             <ul>
-              <li>Windows 10 installation, storage (VHD, storage pools), permissions</li>
+              <li>Windows 11 installation, updates and troubleshooting</li>
+              <li>Windows Server 2025: basic roles, storage (VHD, storage pools), permissions</li>
               <li>Linux essentials and Bash scripting</li>
               <li>User and group management, NTFS permissions and inheritance</li>
               <li>Diagnosing slow systems, drivers and application issues</li>
@@ -272,7 +320,7 @@
 
     <!-- PROCESS / TIMELINE -->
     <section id="process" class="section section-alt snap-section reveal">
-      <div>
+      <div class="section-inner">
         <h2>How We Work Together</h2>
         <p class="section-intro">
           A simple 4‑step process so you always know what’s happening and what comes next.
@@ -282,7 +330,7 @@
           <li>
             <span class="process-step-number">1</span>
             <div class="process-step-body">
-              <h3>Quick Call or Message</h3>
+              <h3>Quick Email</h3>
               <p>You tell me what’s broken or what you want to build. I ask a few questions and give you a realistic next step.</p>
             </div>
           </li>
@@ -313,7 +361,7 @@
 
     <!-- CONTACT -->
     <section id="contact" class="section contact snap-section reveal">
-      <div>
+      <div class="section-inner">
         <h2>Let’s Fix Something</h2>
         <p class="section-intro">
           Tell me briefly what you need help with and I’ll reply with possible options and an estimate.
@@ -322,25 +370,36 @@
           <div>
             <h3>Direct Contact</h3>
 
+            <!-- Email pill -->
             <div class="inline-email" id="inline-email">
-              <span class="inline-email-label">Email</span>
-              <span class="inline-email-address" id="inline-email-address">
-                ivanbogdanov.ivanov@georgebrown.ca
-              </span>
+              <div class="inline-email-left">
+                <span class="inline-email-label">Email</span>
+                <a
+                  href="mailto:ivanbogdanov.ivanov@georgebrown.ca"
+                  class="inline-email-address"
+                  id="inline-email-address"
+                >
+                  ivanbogdanov.ivanov@georgebrown.ca
+                </a>
+              </div>
               <button
                 type="button"
                 class="inline-email-copy"
                 id="inline-email-copy"
-                aria-label="Copy email"
+                aria-label="Copy email to clipboard"
               >
-                <span class="inline-email-copy-icon">✉</span>
-                <span class="inline-email-copy-text">Copy</span>
+                <span class="inline-email-copy-icon">📋</span>
+                <span class="inline-email-copy-text" id="inline-email-copy-text">
+                  Copy
+                </span>
               </button>
+              <span class="inline-email-status" id="inline-email-status">
+                Copied to clipboard
+              </span>
             </div>
 
             <p class="email-hint">
-              Use this email for job opportunities, IT support, or collaboration:
-              <strong>ivanbogdanov.ivanov@georgebrown.ca</strong>.
+              Use this email for job opportunities, internships, IT support, or collaboration. I usually reply within one business day.
             </p>
           </div>
         </div>
