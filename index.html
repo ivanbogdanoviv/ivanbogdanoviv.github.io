@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ivan Bogdanov Ivanov — Networking & IT Infrastructure</title>
+  <meta name="description" content="George Brown College T141 student specializing in Cisco networking, Windows Server, and automation. Based in Toronto, ON. Open to junior IT roles." />
+
+  <meta property="og:title" content="Ivan Bogdanov Ivanov — Networking & IT Infrastructure" />
+  <meta property="og:description" content="T141 student at George Brown College. 13 CCNA labs, 7 GitHub projects, open to junior IT & networking roles in Toronto." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ivanbiv.com" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ivan Bogdanov Ivanov — Networking & IT" />
+  <meta name="twitter:description" content="T141 student at George Brown. 13 CCNA labs, 7 projects. Open to junior IT roles in Toronto." />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23080a0d'/%3E%3Crect x='1' y='1' width='30' height='30' rx='3' fill='none' stroke='%2300e87a' stroke-width='1.5'/%3E%3Ctext x='5' y='22' font-family='monospace' font-size='16' font-weight='bold' fill='%2300e87a'%3E%3E_%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Epilogue:wght@400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:          #080a0d;
+      --surface:     #0c0f14;
+      --surface2:    #111620;
+      --border:      #1a2130;
+      --border-hi:   #243040;
+      --green:       #00e87a;
+      --green-dim:   rgba(0,232,122,0.12);
+      --cyan:        #00cfff;
+      --amber:       #f5a623;
+      --red:         #ff4d6a;
+      --text:        #c9d8ea;
+      --text-dim:    #637080;
+      --text-faint:  #2e3d50;
+      --nav-bg:      rgba(8,10,13,0.95);
+      --mono:        'JetBrains Mono', monospace;
+      --display:     'Epilogue', sans-serif;
+    }
+    [data-theme="light"] {
+      --bg:          #f4f6f8;
+      --surface:     #ffffff;
+      --surface2:    #eef1f5;
+      --border:      #d0d8e4;
+      --border-hi:   #b0bccf;
+      --green:       #009952;
+      --green-dim:   rgba(0,153,82,0.10);
+      --cyan:        #0078a8;
+      --amber:       #b87000;
+      --red:         #cc2233;
+      --text:        #1a2535;
+      --text-dim:    #4a5a70;
+      --text-faint:  #8899b0;
+      --nav-bg:      rgba(244,246,248,0.96);
+    }
+
+    /* ── THEME TOGGLE ── */
+    .theme-toggle {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border-hi);
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s; border-radius: 0; flex-shrink: 0;
+      margin-left: 8px;
+    }
+    .theme-toggle:hover { border-color: var(--green); color: var(--green); }
+    .theme-toggle svg { width: 15px; height: 15px; fill: currentColor; }
+    .icon-sun  { display: none; }
+    .icon-moon { display: block; }
+    [data-theme="light"] .icon-sun  { display: block; }
+    [data-theme="light"] .icon-moon { display: none; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* scanlines */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px);
+      pointer-events: none; z-index: 9000;
+    }
+    /* subtle grid */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,232,122,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,232,122,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none; z-index: 0;
+    }
+    [data-theme="light"] body::before { display: none; }
+    [data-theme="light"] body::after  { opacity: 0.4; }
+
+    .wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 500;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 13px; padding-bottom: 13px; }
+    .nav-id { font-size: 12px; color: var(--green); letter-spacing: 0.03em; }
+    .nav-id span { color: var(--text-dim); }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-resume {
+      font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 14px; border: 1px solid var(--green); color: var(--green);
+      text-decoration: none; transition: all 0.15s; border-radius: 0;
+    }
+    .nav-resume:hover { background: var(--green); color: #000; }
+    @media (max-width: 680px) { .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    #hero { padding: 80px 0 64px; border-bottom: 1px solid var(--border); }
+    .hero-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 28px;
+    }
+    .hero-status::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 10px var(--green);
+      animation: blink-dot 2.4s ease-in-out infinite;
+    }
+    @keyframes blink-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(42px, 9vw, 80px);
+      font-weight: 900; line-height: 0.95;
+      color: #fff; letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero-name .g { color: var(--green); }
+
+    .typewriter-line {
+      font-size: 14px; color: var(--green); margin-bottom: 28px;
+      min-height: 24px;
+      height: 24px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: clip;
+    }
+    @media (max-width: 680px) {
+      .typewriter-line {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 12px;
+      }
+    }
+    .typewriter-line::before { content: '❯ '; color: var(--text-faint); }
+    .cursor { display: inline-block; width: 8px; height: 14px; background: var(--green); vertical-align: middle; margin-left: 2px; animation: blink 1s step-end infinite; }
+    @keyframes blink { 50%{opacity:0} }
+
+    .hero-bio { max-width: 540px; color: var(--text-dim); font-size: 13px; line-height: 1.85; margin-bottom: 36px; }
+    .hero-bio strong { color: var(--text); }
+
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 18px; font-family: var(--mono); font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none; border-radius: 0; transition: all 0.15s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--green); color: #000; font-weight: 700; border: 1px solid var(--green); }
+    .btn-primary:hover { background: transparent; color: var(--green); }
+    .btn-ghost { background: transparent; color: var(--text-dim); border: 1px solid var(--border-hi); }
+    .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── TERMINAL BLOCK ── */
+    .terminal {
+      margin: 48px 0 0;
+      border: 1px solid var(--border);
+      background: #060809;
+    }
+    .t-bar {
+      background: var(--surface); padding: 9px 14px;
+      display: flex; align-items: center; gap: 7px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dr{background:#ff5f57} .dy{background:#febc2e} .dg{background:#28c840}
+    .t-title { font-size: 11px; color: var(--text-dim); margin-left: 6px; }
+    .t-body { padding: 18px 20px; font-size: 12px; line-height: 2.0; }
+    .tp { color: var(--green); } .tc { color: var(--text); }
+    .to { color: var(--text-dim); } .tk { color: var(--cyan); }
+    .tv { color: var(--amber); } .ts { color: var(--green); }
+
+    /* ── STAT ROW ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); margin: 40px 0 0;
+    }
+    @media (max-width: 540px) { .stats { grid-template-columns: repeat(2,1fr); } }
+    .stat { background: var(--surface); padding: 22px 16px; text-align: center; }
+    .stat-n { font-family: var(--display); font-size: 26px; font-weight: 900; color: var(--green); display: block; }
+    .stat-l { font-size: 10px; color: var(--text-dim); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+
+    /* ── SECTION ── */
+    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .sec-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+    .sec-eyebrow::after { content: ''; flex: 1; max-width: 48px; height: 1px; background: var(--green); opacity: 0.35; }
+    .sec-title { font-family: var(--display); font-size: clamp(22px, 5vw, 34px); font-weight: 900; color: #fff; letter-spacing: -0.02em; margin-bottom: 36px; }
+
+    /* ── PROJECTS — SWIPE CAROUSEL ── */
+    .proj-carousel-wrap { position: relative; }
+
+    .proj-nav {
+      display: flex; gap: 8px; margin-bottom: 16px; justify-content: flex-end;
+    }
+    .proj-arrow {
+      width: 38px; height: 38px; border: 1px solid var(--border-hi);
+      background: var(--surface); color: var(--text-dim);
+      font-size: 16px; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: all 0.15s; border-radius: 0; flex-shrink: 0;
+      font-family: var(--mono);
+    }
+    .proj-arrow:hover { border-color: var(--green); color: var(--green); }
+    .proj-arrow:disabled { opacity: 0.25; cursor: default; }
+
+    .proj-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+      gap: 0;
+    }
+    .proj-carousel::-webkit-scrollbar { display: none; }
+
+    .proj-card {
+      flex: 0 0 100%;
+      width: 100%;
+      scroll-snap-align: start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-right: none;
+      padding: 28px;
+      cursor: default;
+    }
+    .proj-card:last-child { border-right: 1px solid var(--border); }
+
+    .proj-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+    .proj-num { font-size: 10px; color: var(--text-faint); letter-spacing: 0.1em; }
+    .proj-status { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 7px; }
+    .ps-done { background: rgba(0,232,122,.1); color: var(--green); border: 1px solid rgba(0,232,122,.3); }
+    .ps-wip  { background: rgba(245,166,35,.1); color: var(--amber); border: 1px solid rgba(245,166,35,.3); }
+
+    .proj-title { font-family: var(--display); font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 16px; }
+
+    .proj-row { margin-bottom: 10px; }
+    .proj-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 3px; }
+    .proj-text { color: var(--text-dim); font-size: 12px; line-height: 1.75; }
+
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+    .tag { font-size: 10px; padding: 3px 7px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-hi); color: var(--text-dim); }
+
+    .proj-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--green); text-decoration: none; transition: opacity .15s;
+      border: 1px solid rgba(0,232,122,0.3); padding: 7px 14px;
+    }
+    .proj-link:hover { opacity: 0.7; }
+
+    /* carousel dots */
+    .proj-dots { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+    .proj-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--border-hi); border: none; cursor: pointer;
+      transition: background 0.2s; padding: 0;
+    }
+    .proj-dot.active { background: var(--green); }
+
+    /* swipe hint */
+    .swipe-hint {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 10px; color: var(--text-faint); letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .swipe-hint svg { flex-shrink: 0; }
+    @media (min-width: 700px) { .swipe-hint { display: none; } }
+
+    /* ── SKILLS — TABBED ── */
+    .skills-tabs { display: flex; gap: 0; margin-bottom: 0; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--border); }
+    .skills-tabs::-webkit-scrollbar { display: none; }
+    .stab {
+      flex-shrink: 0; padding: 10px 18px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-dim);
+      background: transparent; border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: all 0.15s; margin-bottom: -1px;
+    }
+    .stab:hover { color: var(--text); }
+    .stab.active { color: var(--green); border-bottom-color: var(--green); }
+
+    .skills-panel { display: none; padding-top: 28px; }
+    .skills-panel.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+
+    .skill-item {
+      background: var(--surface); padding: 14px 18px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; color: var(--text-dim);
+    }
+    .skill-item::before { content: '─'; color: var(--text-faint); font-size: 10px; flex-shrink: 0; }
+
+    /* ── CERTS ── */
+    .certs { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .cert-row {
+      background: var(--surface); padding: 18px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap; transition: background 0.15s;
+    }
+    .cert-row:hover { background: var(--surface2); }
+    .cert-name { color: #fff; font-size: 13px; }
+    .cert-sub  { color: var(--text-dim); font-size: 11px; margin-top: 2px; }
+    .cert-badge { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 9px; flex-shrink: 0; }
+    .cb-active   { background: rgba(0,232,122,.1); color: var(--green); border: 1px solid rgba(0,232,122,.3); }
+    .cb-progress { background: rgba(245,166,35,.1); color: var(--amber); border: 1px solid rgba(245,166,35,.3); }
+    .cb-planned  { background: rgba(255,255,255,.04); color: var(--text-dim); border: 1px solid var(--border-hi); }
+
+    /* ── EDUCATION ── */
+    .edu {
+      border: 1px solid var(--border); background: var(--surface);
+      padding: 32px; position: relative; overflow: hidden;
+    }
+    .edu::after {
+      content: 'T141'; position: absolute; right: 20px; top: 20px;
+      font-family: var(--display); font-size: 72px; font-weight: 900;
+      color: rgba(0,232,122,0.04); line-height: 1; pointer-events: none;
+    }
+    .edu-school { font-family: var(--display); font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; }
+    .edu-prog   { color: var(--green); font-size: 12px; margin-bottom: 18px; letter-spacing: 0.03em; }
+    .edu-details { color: var(--text-dim); font-size: 12px; line-height: 1.9; }
+    .edu-details strong { color: var(--text); }
+
+    /* ── CONTACT ── */
+    #contact { border-bottom: none; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    @media (max-width: 520px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-card {
+      background: var(--surface); padding: 26px;
+      text-decoration: none; transition: background 0.15s;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .contact-card:hover { background: var(--surface2); }
+    .contact-platform { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); }
+    .contact-handle   { color: var(--green); font-size: 13px; word-break: break-all; }
+    .contact-desc     { color: var(--text-dim); font-size: 11px; }
+
+/* ── STICKY SOCIAL SIDEBAR ── */
+    .social-sidebar {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .social-sidebar::before,
+    .social-sidebar::after {
+      content: '';
+      width: 1px;
+      height: 60px;
+      background: var(--border-hi);
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border-hi);
+      background: var(--surface);
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-link:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: var(--green-dim);
+    }
+    .social-link svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+    @media (max-width: 900px) {
+      .social-sidebar { display: none; }
+    }
+    /* ── ICONS ── */
+    .ico { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; display: inline-block; vertical-align: middle; }
+    .nav-links a { display: inline-flex; align-items: center; gap: 5px; }
+    .contact-platform { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); }
+    .contact-platform svg { width: 11px; height: 11px; fill: currentColor; }
+
+    footer { padding: 28px 0; text-align: center; }
+    footer p { color: var(--text-faint); font-size: 11px; letter-spacing: 0.06em; }
+    footer p + p { margin-top: 6px; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<div class="social-sidebar">
+  <a href="https://github.com/ivanbogdanoviv" class="social-link" target="_blank" aria-label="GitHub">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+    </svg>
+  </a>
+  <a href="https://linkedin.com/in/ivan-bogdanov-ivanov" class="social-link" target="_blank" aria-label="LinkedIn">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  </a>
+</div>
+
+<nav>
+  <div class="wrap">
+    <a href="#" class="nav-id" style="text-decoration:none;"><span>~/</span>ivan-b-ivanov</a>
+    <ul class="nav-links">
+      <li><a href="#projects">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h4v4H7V7zm0 6h10v2H7v-2zm0 4h10v2H7v-2zm6-10h4v4h-4V7z"/></svg>
+        Projects</a></li>
+      <li><a href="#skills">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Skills</a></li>
+      <li><a href="#certs">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 1l3 6.5 7 .5-5.5 4.5 2 7L12 16l-6.5 3.5 2-7L2 8l7-.5L12 1z"/></svg>
+        Certs</a></li>
+      <li><a href="#contact">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Contact</a></li>
+    </ul>
+    <a href="resume.pdf" class="nav-resume" target="_blank">Resume ↓</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-status">Toronto, ON &nbsp;·&nbsp; Graduating April 2026 &nbsp;·&nbsp; Open to junior IT roles</div>
+    <div style="display:flex; align-items:flex-start; gap:28px; flex-wrap:wrap; margin-bottom:20px;">
+
+      <div id="photo-slot" style="
+        width:140px; height:140px; flex-shrink:0;
+        border: 1px solid var(--border-hi);
+        overflow:hidden; position:relative;
+      ">
+        <img src="photo.jpg" alt="Ivan Bogdanov Ivanov"
+          style="width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block;"
+          onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--surface2);font-family:var(--display);font-size:26px;font-weight:900;color:var(--green);\'>IBI</div>'"
+        />
+      </div>
+      <h1 class="hero-name" style="margin-bottom:0;">Ivan<br><span class="g">Bogdanov.</span></h1>
+    </div>
+    <div class="typewriter-line"><span id="tw"></span><span class="cursor"></span></div>
+    <p class="hero-bio">
+      Computer Systems Technician student at <strong>George Brown College (T141)</strong>,
+      graduating April 2026. I've completed <strong>13 CCNAv7 labs</strong> on real Cisco IOS,
+      deployed Windows Server 2025 with full Active Directory from scratch, and built automation
+      that cut manual email work by 70%. Looking for a junior IT or networking role in
+      <strong>Toronto</strong> where I can contribute from day one.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">↓ View My Labs</a>
+      <a href="resume.pdf" class="btn btn-ghost" target="_blank">
+        <svg style="width:12px;height:12px;fill:currentColor;" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/></svg>
+        Resume
+      </a>
+    </div>
+
+
+    <div class="terminal reveal">
+      <div class="t-bar">
+        <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+        <span class="t-title">ivan@gbcollege:~ — bash</span>
+      </div>
+      <div class="t-body">
+        <div><span class="tp">ivan@gbcollege:~$</span> <span class="tc">cat profile.json</span></div>
+        <div class="to">{</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"name"</span>: <span class="tv">"Ivan Bogdanov Ivanov"</span>,</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"program"</span>: <span class="tv">"Computer Systems Technician — T141"</span>,</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"graduating"</span>: <span class="tv">"April 2026"</span>,</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"location"</span>: <span class="tv">"Toronto, ON"</span>,</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"ccna_labs"</span>: <span class="tv">13</span>,</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"github_projects"</span>: <span class="tv">7</span>,</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"focus"</span>: <span class="tv">["Networking", "Windows Server", "Automation"]</span>,</div>
+        <div class="to">&nbsp;&nbsp;<span class="tk">"status"</span>: <span class="ts">"open_to_junior_IT_roles"</span></div>
+        <div class="to">}</div>
+        <div style="margin-top:6px"><span class="tp">ivan@gbcollege:~$</span> <span class="tc">ping recruiters -c 1 --ttl 64<span class="cursor" style="animation-delay:.5s"></span></span></div>
+      </div>
+    </div>
+
+
+    <div class="stats reveal">
+      <div class="stat"><span class="stat-n">13</span><span class="stat-l">CCNA Labs</span></div>
+      <div class="stat"><span class="stat-n">7</span><span class="stat-l">GitHub Projects</span></div>
+      <div class="stat"><span class="stat-n">70%</span><span class="stat-l">Tasks Automated</span></div>
+      <div class="stat"><span class="stat-n">2026</span><span class="stat-l">Graduating</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-eyebrow">Labs & Projects</div>
+    <h2 class="sec-title">Things I've Actually Built</h2>
+
+    <div class="proj-nav">
+      <button class="proj-arrow" id="projPrev" aria-label="Previous project">&#8592;</button>
+      <button class="proj-arrow" id="projNext" aria-label="Next project">&#8594;</button>
+    </div>
+
+    <div class="proj-carousel-wrap">
+      <div class="proj-carousel" id="projCarousel">
+
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-num">01 / 07</span>
+            <span class="proj-status ps-done">Complete</span>
+          </div>
+          <div class="proj-title">Networking Labs</div>
+          <div class="proj-row">
+            <div class="proj-label">What it is</div>
+            <div class="proj-text">13 CCNA labs with full topology diagrams, IOS configs, and addressing tables covering VLANs, OSPF, NAT, ACLs, DHCP, and EtherChannel.</div>
+          </div>
+          <div class="proj-row">
+            <div class="proj-label">Problem Solved</div>
+            <div class="proj-text">Limited hands-on Cisco practice outside scheduled lab time — needed a documented, reusable reference for every major CCNAv7 topic.</div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">Cisco IOS</span><span class="tag">Python</span><span class="tag">Bash</span>
+            <span class="tag">VLANs</span><span class="tag">OSPFv2</span><span class="tag">EtherChannel</span>
+            <span class="tag">ACLs</span><span class="tag">NAT/PAT</span>
+          </div>
+          <a href="https://github.com/ivanbogdanoviv/networking-labs" class="proj-link" target="_blank">↗ View on GitHub</a>
+        </div>
+
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-num">02 / 07</span>
+            <span class="proj-status ps-done">Complete</span>
+          </div>
+          <div class="proj-title">Active Directory Lab</div>
+          <div class="proj-row">
+            <div class="proj-label">What it is</div>
+            <div class="proj-text">Windows Server 2025 AD DS environment — OU hierarchy design, bulk user provisioning from CSV, Group Policy configuration, and full account lifecycle automation.</div>
+          </div>
+          <div class="proj-row">
+            <div class="proj-label">Problem Solved</div>
+            <div class="proj-text">Manual user provisioning doesn't scale. Automated the entire onboarding/offboarding cycle via PowerShell — deployable in under 30 minutes.</div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">PowerShell</span><span class="tag">Windows Server 2025</span>
+            <span class="tag">AD DS</span><span class="tag">GPO</span><span class="tag">NTFS</span>
+          </div>
+          <a href="https://github.com/ivanbogdanoviv/active-directory-lab" class="proj-link" target="_blank">↗ View on GitHub</a>
+        </div>
+
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-num">03 / 07</span>
+            <span class="proj-status ps-done">Complete</span>
+          </div>
+          <div class="proj-title">Windows Helpdesk Toolkit</div>
+          <div class="proj-row">
+            <div class="proj-label">What it is</div>
+            <div class="proj-text">6 helpdesk PowerShell tools: system reports, locked account recovery, disk health checks, network diagnostics, and software export — all built for real support scenarios.</div>
+          </div>
+          <div class="proj-row">
+            <div class="proj-label">Problem Solved</div>
+            <div class="proj-text">Common helpdesk tasks done manually on every machine. Each tool is standalone and runnable by any technician without setup or dependencies.</div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">PowerShell</span><span class="tag">Windows</span>
+            <span class="tag">Helpdesk</span><span class="tag">Diagnostics</span>
+          </div>
+          <a href="https://github.com/ivanbogdanoviv/windows-helpdesk-toolkit" class="proj-link" target="_blank">↗ View on GitHub</a>
+        </div>
+
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-num">04 / 07</span>
+            <span class="proj-status ps-done">Complete</span>
+          </div>
+          <div class="proj-title">IT Support Scripts</div>
+          <div class="proj-row">
+            <div class="proj-label">What it is</div>
+            <div class="proj-text">Production-ready cross-platform sysadmin scripts for Windows and Linux — system health checks, log analysis, user audits, and config backups.</div>
+          </div>
+          <div class="proj-row">
+            <div class="proj-label">Problem Solved</div>
+            <div class="proj-text">Repetitive sysadmin tasks eating time on every machine. Portable library works on any Windows or Linux workstation without external dependencies.</div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">PowerShell</span><span class="tag">Bash</span>
+            <span class="tag">Python</span><span class="tag">Linux</span><span class="tag">Windows</span>
+          </div>
+          <a href="https://github.com/ivanbogdanoviv/it-support-scripts" class="proj-link" target="_blank">↗ View on GitHub</a>
+        </div>
+
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-num">05 / 07</span>
+            <span class="proj-status ps-done">Complete</span>
+          </div>
+          <div class="proj-title">GitHub Automation Playground</div>
+          <div class="proj-row">
+            <div class="proj-label">What it is</div>
+            <div class="proj-text">CI/CD pipelines and GitHub Actions workflows built to sharpen DevOps fundamentals — linting, matrix builds, auto-labeling, and scheduled jobs.</div>
+          </div>
+          <div class="proj-row">
+            <div class="proj-label">Problem Solved</div>
+            <div class="proj-text">No safe environment to learn CI/CD by breaking things. Each workflow is documented with context explaining the design decisions behind it.</div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">GitHub Actions</span><span class="tag">CI/CD</span>
+            <span class="tag">Python</span><span class="tag">YAML</span>
+          </div>
+          <a href="https://github.com/ivanbogdanoviv/github-automation-playground" class="proj-link" target="_blank">↗ View on GitHub</a>
+        </div>
+
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-num">06 / 07</span>
+            <span class="proj-status ps-done">Complete</span>
+          </div>
+          <div class="proj-title">AI Notification Workflows</div>
+          <div class="proj-row">
+            <div class="proj-label">What it is</div>
+            <div class="proj-text">AI-powered email pipeline: inbox summarizer, weekly digest, FAQ auto-responder, and priority alert router — connecting IMAP/SMTP with OpenAI API via Flask.</div>
+          </div>
+          <div class="proj-row">
+            <div class="proj-label">Problem Solved</div>
+            <div class="proj-text">Student org spent ~3 hrs/week manually triaging emails. Reduced that to 30 minutes — a 70% drop in manual handling time.</div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">Python</span><span class="tag">OpenAI API</span>
+            <span class="tag">Flask</span><span class="tag">IMAP/SMTP</span><span class="tag">REST APIs</span>
+          </div>
+          <a href="https://github.com/ivanbogdanoviv/ai-notification-workflows" class="proj-link" target="_blank">↗ View on GitHub</a>
+        </div>
+
+
+        <div class="proj-card">
+          <div class="proj-top">
+            <span class="proj-num">07 / 07</span>
+            <span class="proj-status ps-done">Complete</span>
+          </div>
+          <div class="proj-title">Network Troubleshooting Journal</div>
+          <div class="proj-row">
+            <div class="proj-label">What it is</div>
+            <div class="proj-text">5 real-world Cisco troubleshooting cases with full root cause analysis — covering VLAN mismatches, STP issues, OSPF adjacency failures, and EtherChannel problems.</div>
+          </div>
+          <div class="proj-row">
+            <div class="proj-label">Problem Solved</div>
+            <div class="proj-text">Kept hitting the same Cisco fault patterns with no structured reference. Each case documents: symptoms → diagnosis steps → root cause → verified fix.</div>
+          </div>
+          <div class="proj-tags">
+            <span class="tag">Cisco IOS</span><span class="tag">Networking</span>
+            <span class="tag">VLAN</span><span class="tag">STP</span><span class="tag">OSPF</span>
+          </div>
+          <a href="https://github.com/ivanbogdanoviv/network-troubleshooting-journal" class="proj-link" target="_blank">↗ View on GitHub</a>
+        </div>
+
+      </div>
+
+
+      <div class="proj-dots" id="projDots">
+        <button class="proj-dot active" data-i="0"></button>
+        <button class="proj-dot" data-i="1"></button>
+        <button class="proj-dot" data-i="2"></button>
+        <button class="proj-dot" data-i="3"></button>
+        <button class="proj-dot" data-i="4"></button>
+        <button class="proj-dot" data-i="5"></button>
+        <button class="proj-dot" data-i="6"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-eyebrow">Toolbox</div>
+    <h2 class="sec-title">Skills</h2>
+
+    <div class="skills-tabs" role="tablist">
+      <button class="stab active" data-tab="networking">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        Networking
+      </button>
+      <button class="stab" data-tab="systems">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+        Systems
+      </button>
+      <button class="stab" data-tab="scripting">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        Scripting
+      </button>
+      <button class="stab" data-tab="tools">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+        Tools
+      </button>
+    </div>
+
+    <div class="skills-panel active" id="tab-networking">
+      <div class="skill-item">Cisco IOS (Routers & Switches)</div>
+      <div class="skill-item">VLANs (802.1Q) & EtherChannel</div>
+      <div class="skill-item">OSPFv2 Dynamic Routing</div>
+      <div class="skill-item">Extended ACLs</div>
+      <div class="skill-item">NAT / PAT</div>
+      <div class="skill-item">DHCP & DNS</div>
+      <div class="skill-item">IPv4 / IPv6 & VLSM Subnetting</div>
+      <div class="skill-item">Packet Tracer Labs</div>
+      <div class="skill-item">NETLAB+ (13 exercises)</div>
+      <div class="skill-item">Network Troubleshooting</div>
+    </div>
+
+    <div class="skills-panel" id="tab-systems">
+      <div class="skill-item">Windows Server 2025</div>
+      <div class="skill-item">Active Directory DS</div>
+      <div class="skill-item">Group Policy Objects (GPO)</div>
+      <div class="skill-item">NTFS Permissions & User Mgmt</div>
+      <div class="skill-item">Linux CLI & Shell Navigation</div>
+      <div class="skill-item">Linux File System & Permissions</div>
+      <div class="skill-item">Ubuntu / Kali Linux</div>
+      <div class="skill-item">Process & Service Management</div>
+      <div class="skill-item">Hardware & Driver Diagnostics</div>
+      <div class="skill-item">VirtualBox Virtualization</div>
+    </div>
+
+    <div class="skills-panel" id="tab-scripting">
+      <div class="skill-item">PowerShell Scripting</div>
+      <div class="skill-item">Python (automation, APIs)</div>
+      <div class="skill-item">Bash / Shell</div>
+      <div class="skill-item">GitHub Actions / CI-CD</div>
+      <div class="skill-item">REST API Integration</div>
+      <div class="skill-item">IMAP / SMTP Automation</div>
+    </div>
+
+    <div class="skills-panel" id="tab-tools">
+      <div class="skill-item">Git & GitHub</div>
+      <div class="skill-item">VS Code</div>
+      <div class="skill-item">HTML / CSS</div>
+      <div class="skill-item">JavaScript (basics)</div>
+      <div class="skill-item">Wireshark</div>
+      <div class="skill-item">VirtualBox</div>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="sec-eyebrow">Credentials</div>
+    <h2 class="sec-title">Education & Certifications</h2>
+
+    <div class="edu reveal" style="margin-bottom: 32px;">
+      <div class="edu-school">George Brown College</div>
+      <div class="edu-prog">Computer Systems Technician — Networking (T141) · Toronto, ON · 2025–Apr 2026</div>
+      <div class="edu-details">
+        <strong>Core coursework:</strong> Windows Server 2025, Active Directory, Group Policy, NTFS, hardware diagnostics<br>
+        <strong>Networking:</strong> CCNAv7 — VLANs, OSPF, ACLs, NAT/PAT, DHCP, EtherChannel on real Cisco IOS<br>
+        <strong>Scripting:</strong> Python, Bash, PowerShell · Version control with Git and GitHub Actions CI/CD
+      </div>
+    </div>
+
+
+    <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--green);margin-bottom:10px;display:flex;align-items:center;gap:8px;">
+      <svg style="width:12px;height:12px;fill:currentColor;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      Cisco Networking Academy — 3-Course CCNAv7 Series · George Brown College
+    </div>
+
+    <div class="certs reveal">
+
+      <div class="cert-row">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <svg style="width:16px;height:16px;fill:var(--green);flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          <div>
+            <div class="cert-name">CCNA: Introduction to Networks <span style="color:var(--text-faint);font-size:11px;">· Module 1 of 3</span></div>
+            <div class="cert-sub">George Brown College · Apr 28 – Aug 31, 2025</div>
+          </div>
+        </div>
+        <span class="cert-badge cb-active">Completed</span>
+      </div>
+
+      <div class="cert-row">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <svg style="width:16px;height:16px;fill:var(--green);flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          <div>
+            <div class="cert-name">CCNA: Switching, Routing & Wireless Essentials <span style="color:var(--text-faint);font-size:11px;">· Module 2 of 3</span></div>
+            <div class="cert-sub">George Brown College · Sep 01 – Jan 31, 2026</div>
+          </div>
+        </div>
+        <span class="cert-badge cb-active">Completed</span>
+      </div>
+
+      <div class="cert-row">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <svg style="width:16px;height:16px;fill:var(--amber);flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><path d="M12 1l3 6.5 7 .5-5.5 4.5 2 7L12 16l-6.5 3.5 2-7L2 8l7-.5L12 1z"/></svg>
+          <div>
+            <div class="cert-name">CCNA: Enterprise Networking, Security & Automation <span style="color:var(--text-faint);font-size:11px;">· Module 3 of 3</span></div>
+            <div class="cert-sub">George Brown College · Nov 20, 2025 – May 31, 2026</div>
+          </div>
+        </div>
+        <span class="cert-badge cb-progress">In Progress</span>
+      </div>
+
+      <div class="cert-row">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <svg style="width:16px;height:16px;fill:var(--green);flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          <div>
+            <div class="cert-name">Linux Essentials <span style="color:var(--text-faint);font-size:11px;">· LPI Linux Essentials prep</span></div>
+            <div class="cert-sub">George Brown College · May 07 – Aug 17, 2025 · CRN 82681</div>
+          </div>
+        </div>
+        <span class="cert-badge cb-active">Completed</span>
+      </div>
+
+      <div class="cert-row">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <svg style="width:16px;height:16px;fill:var(--text-faint);flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div>
+            <div class="cert-name">CompTIA Network+</div>
+            <div class="cert-sub">CompTIA — target after CCNA completion</div>
+          </div>
+        </div>
+        <span class="cert-badge cb-planned">Planned</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="sec-eyebrow">Contact</div>
+    <h2 class="sec-title">Let's Talk</h2>
+    <p style="color:var(--text-dim); font-size:13px; margin-bottom:28px; max-width:480px;">
+      Open to junior IT support, helpdesk, and networking roles in Toronto. Available immediately.
+    </p>
+    <div class="contact-grid reveal">
+      <div class="contact-card" style="cursor:default;">
+        <span class="contact-platform">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Email
+        </span>
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+          <a href="mailto:ivan@ivanbiv.com" class="contact-handle" style="text-decoration:none;">ivan@ivanbiv.com</a>
+          <button id="copyEmailBtn" onclick="copyEmail()" style="
+            font-family:var(--mono); font-size:10px; letter-spacing:0.08em;
+            text-transform:uppercase; padding:5px 12px;
+            border:1px solid var(--border-hi); background:transparent;
+            color:var(--text-dim); cursor:pointer; transition:all 0.15s;
+            border-radius:0; white-space:nowrap; display:inline-flex; align-items:center; gap:5px;
+          "><svg style="width:11px;height:11px;fill:currentColor;" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy</button>
+        </div>
+        <span class="contact-desc">Best for opportunities & inquiries</span>
+      </div>
+      <a href="https://linkedin.com/in/ivan-bogdanov-ivanov" class="contact-card" target="_blank">
+        <span class="contact-platform">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </span>
+        <span class="contact-handle">ivan-bogdanov-ivanov</span>
+        <span class="contact-desc">Connect professionally</span>
+      </a>
+      <a href="https://github.com/ivanbogdanoviv" class="contact-card" target="_blank">
+        <span class="contact-platform">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </span>
+        <span class="contact-handle">github.com/ivanbogdanoviv</span>
+        <span class="contact-desc">Lab configs, scripts & projects</span>
+      </a>
+      <a href="resume.pdf" class="contact-card" target="_blank">
+        <span class="contact-platform">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zm-3-7v5H9v-5h6zm-2 4v-3h-2v3h2zm1-9H8v2h8V8h-2z"/></svg>
+          Resume
+        </span>
+        <span class="contact-handle">Download PDF ↓</span>
+        <span class="contact-desc">One page · Updated 2026</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top" style="
+  position:fixed; bottom:24px; right:24px; z-index:400;
+  width:38px; height:38px; border:1px solid var(--border-hi);
+  background:var(--surface); color:var(--text-dim);
+  font-size:16px; cursor:pointer; display:none;
+  align-items:center; justify-content:center;
+  transition:all 0.2s; border-radius:0; font-family:var(--mono);
+">↑</button>
+
+<footer>
+  <div class="wrap">
+    <p>Ivan Bogdanov Ivanov &nbsp;·&nbsp; Toronto, ON &nbsp;·&nbsp; <span id="yr"></span></p>
+    <p style="margin-top:6px;">Designed & coded from scratch</p>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+
+    window.copyEmail = function() {
+      navigator.clipboard.writeText('ivan@ivanbiv.com').then(() => {
+        const btn = document.getElementById('copyEmailBtn');
+        btn.innerHTML = `<svg style="width:11px;height:11px;fill:currentColor;" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Copied!`;
+        btn.style.borderColor = 'var(--green)';
+        btn.style.color = 'var(--green)';
+        setTimeout(() => {
+          btn.innerHTML = `<svg style="width:11px;height:11px;fill:currentColor;" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy`;
+          btn.style.borderColor = '';
+          btn.style.color = '';
+        }, 2000);
+      });
+    };
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    const phrases = [
+      "Networking student @ George Brown T141",
+      "13 CCNA labs on real Cisco IOS — done.",
+      "PowerShell, Python, Bash — I automate the boring stuff.",
+      "Graduating April 2026 · Open to IT roles in Toronto.",
+    ];
+    let pi = 0, ci = 0, del = false;
+    const twEl = document.getElementById('tw');
+    function type() {
+      const p = phrases[pi];
+      twEl.textContent = del ? p.slice(0, --ci) : p.slice(0, ++ci);
+      if (!del && ci === p.length) { del = true; setTimeout(type, 2000); return; }
+      if (del && ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+      setTimeout(type, del ? 28 : 55);
+    }
+    type();
+
+    const obs = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    }), { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    document.querySelectorAll('.stab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.skills-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    const carousel = document.getElementById('projCarousel');
+    const dots     = document.querySelectorAll('.proj-dot');
+    const prevBtn  = document.getElementById('projPrev');
+    const nextBtn  = document.getElementById('projNext');
+    const cards    = carousel.querySelectorAll('.proj-card');
+    let current    = 0;
+
+    function goTo(i) {
+      current = Math.max(0, Math.min(i, cards.length - 1));
+      carousel.scrollTo({ left: cards[current].offsetLeft, behavior: 'smooth' });
+      dots.forEach((d, j) => d.classList.toggle('active', j === current));
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current === cards.length - 1;
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+    dots.forEach(dot => dot.addEventListener('click', () => goTo(parseInt(dot.dataset.i))));
+
+    let scrollTimer;
+    carousel.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        let closest = 0, minDist = Infinity;
+        cards.forEach((card, i) => {
+          const dist = Math.abs(card.offsetLeft - carousel.scrollLeft);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        current = closest;
+        dots.forEach((d, i) => d.classList.toggle('active', i === closest));
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === cards.length - 1;
+      }, 80);
+    }, { passive: true });
+
+    document.addEventListener('keydown', (e) => {
+      const rect = document.getElementById('projects').getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft')  goTo(current - 1);
+      }
+    });
+
+    goTo(0);
+
+    const btt = document.getElementById('btt');
+    window.addEventListener('scroll', () => {
+      btt.style.display = window.scrollY > 400 ? 'flex' : 'none';
+    }, { passive: true });
+    btt.addEventListener('mouseover', () => { btt.style.borderColor = 'var(--green)'; btt.style.color = 'var(--green)'; });
+    btt.addEventListener('mouseout',  () => { btt.style.borderColor = ''; btt.style.color = ''; });
+
+  });
+</script>
+</body>
+</html>
