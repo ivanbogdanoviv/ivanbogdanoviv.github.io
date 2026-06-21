@@ -1,562 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ivan Ivanov</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Ivan Ivanov</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --black:#030810;--glow:#00A3FF;--white:#F0F6FF;
+  --muted:#5A7FA8;--glass:rgba(10,20,40,0.6);
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
 
-    :root {
-      --black:    #030810;
-      --navy:     #050D1A;
-      --blue:     #0A84FF;
-      --blue-dim: #1A3A5C;
-      --glow:     #00A3FF;
-      --white:    #F0F6FF;
-      --muted:    #5A7FA8;
-      --glass:    rgba(10,20,40,0.6);
-    }
+#cursor{position:fixed;z-index:9999;pointer-events:none;width:12px;height:12px;border-radius:50%;background:var(--glow);transform:translate(-50%,-50%);transition:width .3s,height .3s;mix-blend-mode:screen;left:-100px;top:-100px}
+#cursor-ring{position:fixed;z-index:9998;pointer-events:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,163,255,.4);transform:translate(-50%,-50%);transition:width .4s,height .4s;left:-100px;top:-100px}
 
-    html { scroll-behavior: smooth; }
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-    body {
-      background: var(--black);
-      color: var(--white);
-      font-family: 'Space Grotesk', sans-serif;
-      overflow-x: hidden;
-      cursor: none;
-    }
+section{position:relative;z-index:2}
 
-    /* ── CURSOR ── */
-    #cursor {
-      position: fixed; z-index: 9999; pointer-events: none;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--glow);
-      transform: translate(-50%, -50%);
-      transition: width .3s, height .3s, opacity .3s;
-      mix-blend-mode: screen;
-    }
-    #cursor-ring {
-      position: fixed; z-index: 9998; pointer-events: none;
-      width: 40px; height: 40px; border-radius: 50%;
-      border: 1px solid rgba(0,163,255,.4);
-      transform: translate(-50%, -50%);
-      transition: width .4s, height .4s;
-    }
+/* HERO */
+#hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.hero-label{font-family:'Space Mono',monospace;font-size:clamp(.6rem,1.2vw,.78rem);letter-spacing:.35em;color:var(--glow);text-transform:uppercase;opacity:0;margin-bottom:1.6rem}
+.hero-name{font-size:clamp(3rem,10vw,9rem);font-weight:700;line-height:.95;text-align:center;letter-spacing:-.03em;background:linear-gradient(135deg,#fff 30%,#4A90E2 70%,var(--glow) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0}
+.hero-sub{margin-top:1.5rem;font-size:clamp(1rem,2.5vw,1.35rem);font-weight:300;color:var(--muted);letter-spacing:.07em;opacity:0}
+.scroll-cue{position:absolute;bottom:2.5rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0}
+.scroll-cue span{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--glow),transparent);animation:sLine 1.8s ease-in-out infinite}
+@keyframes sLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-    /* ── CANVAS BACKGROUND ── */
-    #stars-canvas {
-      position: fixed; inset: 0; z-index: 0;
-      pointer-events: none;
-    }
+/* GLOBE SECTION */
+#globe-section{height:380vh;position:relative}
+.globe-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#globe-canvas{position:absolute;inset:0;width:100%;height:100%}
+.globe-text{position:absolute;bottom:9vh;left:50%;transform:translateX(-50%);z-index:10;opacity:0;pointer-events:none;text-align:center;white-space:nowrap}
+.globe-text h2{font-size:clamp(1.2rem,3.5vw,2.8rem);font-weight:300;letter-spacing:.14em;color:var(--white);text-shadow:0 0 60px rgba(0,0,0,.9),0 0 120px rgba(0,0,0,.7)}
 
-    /* ── NOISE OVERLAY ── */
-    body::after {
-      content: '';
-      position: fixed; inset: 0; z-index: 1; pointer-events: none;
-      opacity: .35;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-    }
+/* MARQUEE */
+.marquee-wrap{position:relative;z-index:2;overflow:hidden;border-top:1px solid rgba(0,163,255,.06);border-bottom:1px solid rgba(0,163,255,.06);padding:.9rem 0;margin-bottom:4vh;white-space:nowrap}
+.marquee-track{display:inline-flex;gap:4rem;animation:mq 22s linear infinite}
+.marquee-track span{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.3em;color:rgba(0,163,255,.28);text-transform:uppercase;user-select:none}
+.marquee-track .acc{color:rgba(0,163,255,.6)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* ── SECTIONS ── */
-    section { position: relative; z-index: 2; }
+/* CONTACT */
+#contact{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8vh 2rem;gap:3rem}
+.contact-headline{text-align:center;opacity:0;transform:translateY(40px)}
+.contact-headline h2{font-size:clamp(2.5rem,7vw,6rem);font-weight:700;letter-spacing:-.04em;background:linear-gradient(135deg,#fff,var(--glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.contact-headline p{margin-top:1rem;font-size:clamp(.9rem,2vw,1.15rem);color:var(--muted);font-weight:300;letter-spacing:.04em}
+.cards{display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;max-width:820px;width:100%}
+.card{flex:1 1 220px;background:var(--glass);border:1px solid rgba(0,163,255,.12);border-radius:18px;padding:2rem 1.8rem;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:flex;flex-direction:column;gap:.8rem;opacity:0;transform:translateY(50px);transition:border-color .3s,box-shadow .35s,transform .3s;text-decoration:none;color:inherit;position:relative;overflow:hidden;cursor:none}
+.card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(0,163,255,.10),transparent 65%);opacity:0;transition:opacity .4s;pointer-events:none}
+.card:hover{border-color:rgba(0,163,255,.45);transform:translateY(-7px);box-shadow:0 22px 60px rgba(0,90,255,.18),0 0 0 1px rgba(0,163,255,.22)}
+.card:hover::before{opacity:1}
+.card-icon{width:42px;height:42px;border-radius:11px;background:rgba(0,163,255,.10);border:1px solid rgba(0,163,255,.2);display:flex;align-items:center;justify-content:center}
+.card-icon svg{width:20px;height:20px;stroke:var(--glow);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card-label{font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
+.card-value{font-size:clamp(.9rem,1.8vw,1.05rem);font-weight:500;color:var(--white);word-break:break-all}
 
-    /* ── HERO ── */
-    #hero {
-      height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      overflow: hidden;
-    }
+footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem 4rem;font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.2em;color:rgba(90,127,168,.35);text-transform:uppercase}
 
-    .hero-label {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(.6rem, 1.2vw, .78rem);
-      letter-spacing: .35em;
-      color: var(--glow);
-      text-transform: uppercase;
-      opacity: 0;
-      margin-bottom: 1.6rem;
-    }
-
-    .hero-name {
-      font-size: clamp(3.2rem, 10vw, 9rem);
-      font-weight: 700;
-      line-height: .95;
-      text-align: center;
-      letter-spacing: -.03em;
-      background: linear-gradient(135deg, #fff 30%, #4A90E2 70%, var(--glow) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      opacity: 0;
-    }
-
-    .hero-sub {
-      margin-top: 1.5rem;
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      font-weight: 300;
-      color: var(--muted);
-      letter-spacing: .08em;
-      text-align: center;
-      opacity: 0;
-    }
-
-    .scroll-cue {
-      position: absolute;
-      bottom: 2.5rem;
-      display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      opacity: 0;
-    }
-    .scroll-cue span {
-      font-family: 'Space Mono', monospace;
-      font-size: .65rem;
-      letter-spacing: .3em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .scroll-line {
-      width: 1px; height: 60px;
-      background: linear-gradient(to bottom, var(--glow), transparent);
-      animation: scrollLine 1.8s ease-in-out infinite;
-    }
-    @keyframes scrollLine {
-      0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
-      50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
-      51%  { transform-origin: bottom; }
-      100% { transform: scaleY(0); transform-origin: bottom; opacity: 0; }
-    }
-
-    /* ── CN TOWER SECTION ── */
-    #tower-section {
-      height: 300vh;
-      position: relative;
-    }
-    .tower-sticky {
-      position: sticky;
-      top: 0; height: 100vh;
-      display: flex; align-items: flex-end; justify-content: center;
-      overflow: hidden;
-    }
-
-    #tower-svg {
-      position: absolute;
-      bottom: 0;
-      width: clamp(140px, 20vw, 280px);
-      height: 88vh;
-      overflow: visible;
-    }
-
-    .tower-draw {
-      fill: none;
-      stroke: var(--blue-dim);
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: drop-shadow(0 0 5px var(--blue));
-    }
-
-    .tower-glow {
-      fill: none;
-      stroke: var(--glow);
-      stroke-linecap: round;
-      opacity: 0;
-      filter: drop-shadow(0 0 10px var(--glow));
-    }
-
-    .pod-fill {
-      fill: var(--blue-dim);
-      stroke: var(--glow);
-      stroke-width: 1;
-      opacity: 0;
-      filter: drop-shadow(0 0 8px var(--glow));
-    }
-
-    .city-glow {
-      position: absolute;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 130%; height: 200px;
-      background: radial-gradient(ellipse at 50% 100%, rgba(0,80,220,.20) 0%, transparent 70%);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .tower-copy {
-      position: absolute;
-      text-align: center;
-      top: 42%; left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0;
-      pointer-events: none;
-      width: 90%;
-    }
-    .tower-copy h2 {
-      font-size: clamp(1.1rem, 3.5vw, 2.2rem);
-      font-weight: 300;
-      letter-spacing: .1em;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-    .tower-copy em {
-      font-style: normal;
-      color: var(--white);
-      font-weight: 500;
-    }
-
-    /* ── CONTACT SECTION ── */
-    #contact {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 8vh 2rem;
-      gap: 3rem;
-    }
-
-    .contact-headline {
-      text-align: center;
-      opacity: 0; transform: translateY(40px);
-    }
-    .contact-headline h2 {
-      font-size: clamp(2.5rem, 7vw, 6rem);
-      font-weight: 700;
-      letter-spacing: -.04em;
-      background: linear-gradient(135deg, #fff, var(--glow));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1;
-    }
-    .contact-headline p {
-      margin-top: 1rem;
-      font-size: clamp(.9rem, 2vw, 1.15rem);
-      color: var(--muted);
-      font-weight: 300;
-      letter-spacing: .04em;
-    }
-
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      justify-content: center;
-      max-width: 820px;
-      width: 100%;
-    }
-
-    .card {
-      flex: 1 1 220px;
-      background: var(--glass);
-      border: 1px solid rgba(0,163,255,.12);
-      border-radius: 18px;
-      padding: 2rem 1.8rem;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      display: flex; flex-direction: column; gap: .8rem;
-      opacity: 0; transform: translateY(50px);
-      transition: border-color .3s, box-shadow .35s, transform .3s;
-      text-decoration: none; color: inherit;
-      position: relative; overflow: hidden;
-      cursor: none;
-    }
-    .card::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(0,163,255,.10), transparent 65%);
-      opacity: 0; transition: opacity .4s;
-      pointer-events: none;
-    }
-    .card:hover { border-color: rgba(0,163,255,.45); transform: translateY(-7px); }
-    .card:hover { box-shadow: 0 22px 60px rgba(0,90,255,.18), 0 0 0 1px rgba(0,163,255,.22); }
-    .card:hover::before { opacity: 1; }
-
-    .card-icon {
-      width: 42px; height: 42px;
-      border-radius: 11px;
-      background: rgba(0,163,255,.10);
-      border: 1px solid rgba(0,163,255,.2);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card-icon svg { width: 20px; height: 20px; stroke: var(--glow); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-
-    .card-label {
-      font-family: 'Space Mono', monospace;
-      font-size: .63rem;
-      letter-spacing: .3em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-    .card-value {
-      font-size: clamp(.9rem, 1.8vw, 1.05rem);
-      font-weight: 500;
-      color: var(--white);
-      word-break: break-all;
-    }
-
-    /* ── MARQUEE ── */
-    .marquee-wrap {
-      position: relative; z-index: 2;
-      overflow: hidden;
-      border-top: 1px solid rgba(0,163,255,.06);
-      border-bottom: 1px solid rgba(0,163,255,.06);
-      padding: .9rem 0;
-      margin-bottom: 4vh;
-      white-space: nowrap;
-    }
-    .marquee-track {
-      display: inline-flex; gap: 4rem;
-      animation: marquee 22s linear infinite;
-    }
-    .marquee-track span {
-      font-family: 'Space Mono', monospace;
-      font-size: .7rem;
-      letter-spacing: .3em;
-      color: rgba(0,163,255,.28);
-      text-transform: uppercase;
-      user-select: none;
-    }
-    .marquee-track span.accent { color: rgba(0,163,255,.6); }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      position: relative; z-index: 2;
-      text-align: center;
-      padding: 3rem 2rem 4rem;
-      font-family: 'Space Mono', monospace;
-      font-size: .63rem;
-      letter-spacing: .2em;
-      color: rgba(90,127,168,.35);
-      text-transform: uppercase;
-    }
-
-    @media (max-width: 600px) {
-      .card { flex: 1 1 100%; }
-      body { cursor: auto; }
-      #cursor, #cursor-ring { display: none; }
-    }
-  </style>
+@media(max-width:600px){.card{flex:1 1 100%}body{cursor:auto}#cursor,#cursor-ring{display:none}}
+</style>
 </head>
 <body>
 
-  <div id="cursor"></div>
-  <div id="cursor-ring"></div>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<canvas id="stars"></canvas>
 
-  <canvas id="stars-canvas"></canvas>
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-label" id="hl">Toronto &middot; Ontario &middot; Canada</p>
+  <h1 class="hero-name" id="hn">Ivan Ivanov</h1>
+  <p class="hero-sub" id="hs">Here to connect.</p>
+  <div class="scroll-cue" id="sc"><span>Scroll</span><div class="scroll-line"></div></div>
+</section>
 
-  <!-- HERO -->
-  <section id="hero">
-    <p class="hero-label" id="hero-label">Toronto &middot; Ontario &middot; Canada</p>
-    <h1 class="hero-name" id="hero-name">Ivan Ivanov</h1>
-    <p class="hero-sub" id="hero-sub">Here to connect &mdash; not to impress.</p>
-    <div class="scroll-cue" id="scroll-cue">
-      <span>Scroll</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- CN TOWER SCROLL -->
-  <section id="tower-section">
-    <div class="tower-sticky">
-      <div class="city-glow" id="city-glow"></div>
-
-      <svg id="tower-svg" viewBox="0 0 160 820" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax meet">
-
-        <!-- Base legs -->
-        <path class="tower-draw" id="t-base" stroke-width="2.5"
-          d="M 48 820 L 56 730 L 62 690 L 67 650 L 71 610 L 74 570 L 77 530 L 79 500
-             M 112 820 L 104 730 L 98 690 L 93 650 L 89 610 L 86 570 L 83 530 L 81 500"/>
-
-        <!-- Main shaft -->
-        <path class="tower-draw" id="t-shaft" stroke-width="1.8"
-          d="M 79 500 L 78 450 L 77 390 L 76.5 330 L 76 270 L 75.5 210 L 75 165 L 74.5 135
-             M 81 500 L 82 450 L 83 390 L 83.5 330 L 84 270 L 84.5 210 L 85 165 L 85.5 135"/>
-
-        <!-- Observation pod (SkyPod) -->
-        <ellipse class="pod-fill" id="t-pod-outer" cx="80" cy="320" rx="28" ry="11"/>
-        <ellipse class="pod-fill" id="t-pod-inner" cx="80" cy="315" rx="19" ry="7.5" style="fill:var(--navy)"/>
-        <ellipse class="tower-glow" id="t-pod-glow" cx="80" cy="320" rx="29" ry="11.5" stroke-width="1.5"/>
-
-        <!-- Upper tapered shaft -->
-        <path class="tower-draw" id="t-upper" stroke-width="1.2"
-          d="M 74.5 135 L 74 105 L 73.5 75 L 73 42 L 72.5 15
-             M 85.5 135 L 86 105 L 86.5 75 L 87 42 L 87.5 15"/>
-
-        <!-- Antenna mast -->
-        <line class="tower-draw" id="t-antenna" x1="80" y1="15" x2="80" y2="-38" stroke-width="1.1"/>
-
-        <!-- Antenna tip glow -->
-        <circle class="tower-glow" id="t-tip" cx="80" cy="-38" r="3.5" stroke-width="2"/>
-
-        <!-- Beacon light beams from pod -->
-        <line class="tower-glow" id="t-beam1" x1="80" y1="308" x2="15" y2="210" stroke-width=".9"/>
-        <line class="tower-glow" id="t-beam2" x1="80" y1="308" x2="145" y2="210" stroke-width=".9"/>
-        <line class="tower-glow" id="t-beam3" x1="80" y1="308" x2="80" y2="170" stroke-width=".9"/>
-      </svg>
-
-      <div class="tower-copy" id="tower-copy">
-        <h2><em>553 metres</em> above the ground.<br>That&rsquo;s home.</h2>
-      </div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee-wrap">
-    <div class="marquee-track">
-      <span class="accent">Ivan Ivanov</span><span>&middot;</span>
-      <span>ivanbiv.com</span><span>&middot;</span>
-      <span class="accent">Let&rsquo;s connect</span><span>&middot;</span>
-      <span>Toronto</span><span>&middot;</span>
-      <span class="accent">ivan@ivanbiv.com</span><span>&middot;</span>
-      <span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
-      <!-- duplicate for seamless loop -->
-      <span class="accent">Ivan Ivanov</span><span>&middot;</span>
-      <span>ivanbiv.com</span><span>&middot;</span>
-      <span class="accent">Let&rsquo;s connect</span><span>&middot;</span>
-      <span>Toronto</span><span>&middot;</span>
-      <span class="accent">ivan@ivanbiv.com</span><span>&middot;</span>
-      <span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
-    </div>
+<!-- GLOBE -->
+<section id="globe-section">
+  <div class="globe-sticky">
+    <canvas id="globe-canvas"></canvas>
+    <div class="globe-text" id="globe-text"><h2>The world never stops talking.</h2></div>
   </div>
+</section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact-headline" id="contact-headline">
-      <h2>Say hello.</h2>
-      <p>No pitch. No agenda. Just a conversation.</p>
-    </div>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="acc">Ivan Ivanov</span><span>&middot;</span>
+    <span>ivanbiv.com</span><span>&middot;</span>
+    <span class="acc">Let&rsquo;s connect</span><span>&middot;</span>
+    <span>Toronto</span><span>&middot;</span>
+    <span class="acc">ivan@ivanbiv.com</span><span>&middot;</span>
+    <span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
+    <span class="acc">Ivan Ivanov</span><span>&middot;</span>
+    <span>ivanbiv.com</span><span>&middot;</span>
+    <span class="acc">Let&rsquo;s connect</span><span>&middot;</span>
+    <span>Toronto</span><span>&middot;</span>
+    <span class="acc">ivan@ivanbiv.com</span><span>&middot;</span>
+    <span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
+  </div>
+</div>
 
-    <div class="cards">
-      <a class="card" id="card-email" href="mailto:ivan@ivanbiv.com">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-        </div>
-        <span class="card-label">Email</span>
-        <span class="card-value">ivan@ivanbiv.com</span>
-      </a>
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-headline" id="ch">
+    <h2>Say hello.</h2>
+    <p>No pitch. No agenda. Just a conversation.</p>
+  </div>
+  <div class="cards">
+    <a class="card" id="c1" href="mailto:ivan@ivanbiv.com">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></div>
+      <span class="card-label">Email</span><span class="card-value">ivan@ivanbiv.com</span>
+    </a>
+    <a class="card" id="c2" href="tel:+14374404049">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 9.74 19.79 19.79 0 01.67 1.1 2 2 0 012.67 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.06 6.06l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+      <span class="card-label">Phone</span><span class="card-value">+1 437-440-4049</span>
+    </a>
+    <a class="card" id="c3" href="https://linkedin.com/in/ivan-bogdanov-ivanov" target="_blank" rel="noopener">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+      <span class="card-label">LinkedIn</span><span class="card-value">ivan-bogdanov-ivanov</span>
+    </a>
+  </div>
+</section>
 
-      <a class="card" id="card-phone" href="tel:+14374404049">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.7 9.74 19.79 19.79 0 01.67 1.1 2 2 0 012.67 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.06 6.06l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
-        </div>
-        <span class="card-label">Phone</span>
-        <span class="card-value">+1 437-440-4049</span>
-      </a>
+<footer><p>&copy; 2026 Ivan Ivanov &nbsp;&middot;&nbsp; Toronto, Ontario</p></footer>
 
-      <a class="card" id="card-linkedin" href="https://linkedin.com/in/ivan-bogdanov-ivanov" target="_blank" rel="noopener">
-        <div class="card-icon">
-          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </div>
-        <span class="card-label">LinkedIn</span>
-        <span class="card-value">ivan-bogdanov-ivanov</span>
-      </a>
-    </div>
-  </section>
+<script>
+gsap.registerPlugin(ScrollTrigger);
 
-  <footer>
-    <p>&copy; 2026 Ivan Ivanov &nbsp;&middot;&nbsp; Toronto, Ontario</p>
-  </footer>
+// ── CURSOR ──────────────────────────────────────────────────────────
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(tick)})();
+document.querySelectorAll('.card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='20px';cur.style.height='20px';ring.style.width='60px';ring.style.height='60px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='40px';ring.style.height='40px'});
+});
 
-  <script>
-  gsap.registerPlugin(ScrollTrigger);
+// ── STARFIELD ───────────────────────────────────────────────────────
+(function(){
+  const c=document.getElementById('stars'),x=c.getContext('2d');
+  let W,H,S=[];
+  function rsz(){W=c.width=innerWidth;H=c.height=innerHeight}
+  rsz();window.addEventListener('resize',rsz);
+  for(let i=0;i<220;i++)S.push({x:Math.random(),y:Math.random(),r:Math.random()*1.3+.2,ph:Math.random()*Math.PI*2});
+  let t=0;
+  (function draw(){x.clearRect(0,0,W,H);t+=.004;S.forEach(s=>{const a=.1+.45*(.5+.5*Math.sin(t*1.8+s.ph));x.beginPath();x.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);x.fillStyle=`rgba(140,190,255,${a})`;x.fill()});requestAnimationFrame(draw)})();
+})();
 
-  // ── CURSOR ─────────────────────────────────────────────────────
-  const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+// ── GLOBE ───────────────────────────────────────────────────────────
+(function(){
+  // Seeded RNG for deterministic land dots
+  let _s=12345;
+  const rng=()=>{_s=Math.imul(1664525,_s)+1013904223|0;return(_s>>>0)/4294967296};
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top  = my + 'px';
-  });
-  (function tick() {
-    rx += (mx - rx) * .13;
-    ry += (my - ry) * .13;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(tick);
-  })();
-
-  document.querySelectorAll('.card').forEach(el => {
-    el.addEventListener('mouseenter', () => { cursor.style.width = '22px'; cursor.style.height = '22px'; ring.style.width = '64px'; ring.style.height = '64px'; });
-    el.addEventListener('mouseleave', () => { cursor.style.width = '12px'; cursor.style.height = '12px'; ring.style.width = '40px'; ring.style.height = '40px'; });
-  });
-
-  // ── STARFIELD ──────────────────────────────────────────────────
-  (function() {
-    const cvs = document.getElementById('stars-canvas');
-    const ctx = cvs.getContext('2d');
-    let W, H, stars = [];
-    function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
-    resize(); window.addEventListener('resize', resize);
-    for (let i = 0; i < 250; i++) stars.push({ x: Math.random(), y: Math.random(), r: Math.random()*1.3+.2, phase: Math.random()*Math.PI*2 });
-    let t = 0;
-    (function draw() {
-      ctx.clearRect(0,0,W,H); t += .004;
-      stars.forEach(s => {
-        const a = .12 + .5 * (.5 + .5*Math.sin(t*1.8 + s.phase));
-        ctx.beginPath(); ctx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(140,190,255,${a})`; ctx.fill();
-      });
-      requestAnimationFrame(draw);
-    })();
-  })();
-
-  // ── HERO ENTRANCE ──────────────────────────────────────────────
-  gsap.timeline({ delay: .25 })
-    .to('#hero-label', { opacity:1, y:0, duration:.9, ease:'power3.out' }, 0)
-    .to('#hero-name',  { opacity:1, y:0, duration:1,  ease:'power3.out' }, .3)
-    .to('#hero-sub',   { opacity:1, y:0, duration:.9, ease:'power3.out' }, .65)
-    .to('#scroll-cue', { opacity:1, duration:.8, ease:'power2.out' }, 1.15);
-
-  // ── CN TOWER DRAW-ON ───────────────────────────────────────────
-  function plen(el) { try { return el.getTotalLength(); } catch(e) { return 900; } }
-
-  document.querySelectorAll('.tower-draw').forEach(el => {
-    const l = plen(el);
-    el.style.strokeDasharray = l;
-    el.style.strokeDashoffset = l;
+  // Land dot regions [latMin,latMax,lngMin,lngMax,count]
+  const REGIONS=[
+    [25,72,-140,-52,90],   // North America
+    [-55,12,-81,-34,60],   // South America
+    [35,71,-12,45,80],     // Europe
+    [-35,37,-18,52,90],    // Africa
+    [10,70,26,145,140],    // Asia
+    [-40,-10,113,155,40],  // Australia
+    [60,75,-25,50,20],     // Arctic fringe
+  ];
+  const LAND_DOTS=[];
+  REGIONS.forEach(([la,lb,lo,lp,n])=>{
+    for(let i=0;i<n;i++)LAND_DOTS.push({lat:la+rng()*(lb-la),lng:lo+rng()*(lp-lo)});
   });
 
-  gsap.timeline({
-    scrollTrigger: { trigger:'#tower-section', start:'top top', end:'bottom bottom', scrub:1.6 }
-  })
-  .to('#t-base',  { strokeDashoffset:0, duration:1, ease:'none' }, 0)
-  .to('#t-shaft', { strokeDashoffset:0, duration:1, ease:'none' }, .25)
-  .to(['#t-pod-outer','#t-pod-inner'], { opacity:1, duration:.4, ease:'power2.out' }, .55)
-  .to('#t-pod-glow', { opacity:.85, duration:.3 }, .6)
-  .to('#t-upper',    { strokeDashoffset:0, duration:.5, ease:'none' }, .64)
-  .to('#t-antenna',  { strokeDashoffset:0, duration:.28, ease:'none' }, .82)
-  .to('#t-tip',      { opacity:1, duration:.2 }, .92)
-  .to(['#t-beam1','#t-beam2','#t-beam3'], { opacity:.65, duration:.25, stagger:.04 }, .93)
-  .to('#city-glow',  { opacity:1, duration:.5 }, .5)
-  .to('#tower-copy', { opacity:1, duration:.4, ease:'power2.out' }, .62)
-  .to('#tower-copy', { opacity:0, duration:.3, ease:'power2.in' }, .86);
+  const CITIES=[
+    {n:'Toronto',   lat:43.7,  lng:-79.4,  home:true},
+    {n:'New York',  lat:40.7,  lng:-74.0},
+    {n:'Chicago',   lat:41.9,  lng:-87.6},
+    {n:'L.A.',      lat:34.0,  lng:-118.2},
+    {n:'Vancouver', lat:49.3,  lng:-123.1},
+    {n:'Montreal',  lat:45.5,  lng:-73.6},
+    {n:'Mexico City',lat:19.4, lng:-99.1},
+    {n:'Sao Paulo', lat:-23.5, lng:-46.6},
+    {n:'Buenos Aires',lat:-34.6,lng:-58.4},
+    {n:'London',    lat:51.5,  lng:-0.1},
+    {n:'Amsterdam', lat:52.4,  lng:4.9},
+    {n:'Frankfurt', lat:50.1,  lng:8.7},
+    {n:'Paris',     lat:48.9,  lng:2.3},
+    {n:'Madrid',    lat:40.4,  lng:-3.7},
+    {n:'Moscow',    lat:55.8,  lng:37.6},
+    {n:'Istanbul',  lat:41.0,  lng:28.9},
+    {n:'Cairo',     lat:30.1,  lng:31.2},
+    {n:'Lagos',     lat:6.5,   lng:3.4},
+    {n:'Johannesburg',lat:-26.2,lng:28.0},
+    {n:'Dubai',     lat:25.2,  lng:55.3},
+    {n:'Mumbai',    lat:19.1,  lng:72.9},
+    {n:'Singapore', lat:1.4,   lng:103.8},
+    {n:'Hong Kong', lat:22.3,  lng:114.2},
+    {n:'Shanghai',  lat:31.2,  lng:121.5},
+    {n:'Beijing',   lat:39.9,  lng:116.4},
+    {n:'Tokyo',     lat:35.7,  lng:139.7},
+    {n:'Seoul',     lat:37.6,  lng:127.0},
+    {n:'Sydney',    lat:-33.9, lng:151.2},
+  ];
 
-  // ── CONTACT SCROLL-IN ──────────────────────────────────────────
-  gsap.to('#contact-headline', {
-    opacity:1, y:0, duration:.9, ease:'power3.out',
-    scrollTrigger: { trigger:'#contact', start:'top 75%', toggleActions:'play none none reverse' }
-  });
-  gsap.to(['#card-email','#card-phone','#card-linkedin'], {
-    opacity:1, y:0, duration:.7, ease:'power3.out', stagger:.16,
-    scrollTrigger: { trigger:'.cards', start:'top 80%', toggleActions:'play none none reverse' }
-  });
+  // Connection pairs (indices)
+  const CONN=[
+    // Toronto hub
+    [0,1],[0,2],[0,3],[0,5],[0,9],[0,11],[0,25],[0,27],[0,7],[0,21],[0,19],[0,14],
+    // Americas backbone
+    [1,2],[2,3],[3,4],[1,5],[1,7],[3,6],[6,7],[7,8],
+    // Europe cluster
+    [9,10],[9,11],[9,12],[9,13],[10,11],[11,14],[12,15],[13,16],
+    // Africa/ME
+    [15,19],[16,17],[17,18],[18,27],[16,19],[19,20],
+    // Asia web
+    [19,20],[20,21],[21,22],[21,23],[22,23],[23,24],[24,25],[25,26],[26,27],[27,23],
+    // Cross-ocean
+    [9,1],[9,14],[3,25],[27,3],[11,20],[21,27],
+  ];
 
-  // ── HERO PARALLAX ──────────────────────────────────────────────
-  gsap.to('#hero-name', {
-    yPercent:-22, ease:'none',
-    scrollTrigger: { trigger:'#hero', start:'top top', end:'bottom top', scrub:true }
+  const gc=document.getElementById('globe-canvas');
+  const gx=gc.getContext('2d');
+  let gW,gH,gCX,gCY,gR;
+  function rsz(){gW=gc.width=gc.offsetWidth;gH=gc.height=gc.offsetHeight;gCX=gW/2;gCY=gH/2;gR=Math.min(gW,gH)*.37}
+  rsz();window.addEventListener('resize',rsz);
+
+  // GSAP-animated state
+  const G={rot:-15,tilt:18,scale:1,conv:0,time:0};
+
+  // lat/lng → 3D unit vector with Y-rotation (G.rot) + X-tilt (G.tilt)
+  function v3(lat,lng){
+    const phi=(90-lat)*Math.PI/180;
+    const th=(lng+G.rot)*Math.PI/180;
+    const tilt=G.tilt*Math.PI/180;
+    const x=Math.sin(phi)*Math.sin(th);
+    const y0=Math.cos(phi);
+    const z0=Math.sin(phi)*Math.cos(th);
+    return{x,y:y0*Math.cos(tilt)-z0*Math.sin(tilt),z:y0*Math.sin(tilt)+z0*Math.cos(tilt)};
+  }
+
+  // Slerp two unit vectors
+  function sl(a,b,t){
+    const d=Math.min(1,Math.max(-1,a.x*b.x+a.y*b.y+a.z*b.z));
+    const om=Math.acos(d);
+    if(om<.001)return{x:a.x+t*(b.x-a.x),y:a.y+t*(b.y-a.y),z:a.z+t*(b.z-a.z)};
+    const s=Math.sin(om),s1=Math.sin((1-t)*om)/s,s2=Math.sin(t*om)/s;
+    return{x:s1*a.x+s2*b.x,y:s1*a.y+s2*b.y,z:s1*a.z+s2*b.z};
+  }
+
+  function px(v){const r=gR*G.scale;return{x:gCX+v.x*r,y:gCY-v.y*r,z:v.z}}
+
+  function render(){
+    gx.clearRect(0,0,gW,gH);
+    const r=gR*G.scale,cv=G.conv,t=G.tilt*Math.PI/180;
+
+    // Outer atmosphere
+    const ag=gx.createRadialGradient(gCX,gCY,r*.8,gCX,gCY,r*1.35);
+    ag.addColorStop(0,'rgba(0,60,160,0)');
+    ag.addColorStop(.5,'rgba(0,50,160,.09)');
+    ag.addColorStop(1,'rgba(0,30,100,0)');
+    gx.beginPath();gx.arc(gCX,gCY,r*1.35,0,Math.PI*2);gx.fillStyle=ag;gx.fill();
+
+    // Globe sphere
+    const sg=gx.createRadialGradient(gCX-r*.28,gCY-r*.28,r*.05,gCX,gCY,r);
+    sg.addColorStop(0,'rgba(12,32,80,.97)');
+    sg.addColorStop(.65,'rgba(3,10,30,.99)');
+    sg.addColorStop(1,'rgba(2,6,20,1)');
+    gx.beginPath();gx.arc(gCX,gCY,r,0,Math.PI*2);gx.fillStyle=sg;gx.fill();
+
+    // Rim glow
+    gx.beginPath();gx.arc(gCX,gCY,r,0,Math.PI*2);
+    gx.strokeStyle='rgba(0,90,210,.3)';gx.lineWidth=1.5;gx.stroke();
+
+    // Grid lines
+    gx.lineWidth=.5;
+    for(let lat=-60;lat<=60;lat+=20){
+      const phi=(90-lat)*Math.PI/180,y0=Math.cos(phi),rl=Math.sin(phi);
+      gx.beginPath();let go=false;
+      for(let lng=-180;lng<=180;lng+=3){
+        const th=(lng+G.rot)*Math.PI/180;
+        const x=rl*Math.sin(th),z0=rl*Math.cos(th);
+        const y=y0*Math.cos(t)-z0*Math.sin(t),z=y0*Math.sin(t)+z0*Math.cos(t);
+        if(z<0){go=false;continue}
+        go?(gx.lineTo(gCX+x*r,gCY-y*r)):(gx.moveTo(gCX+x*r,gCY-y*r),go=true);
+      }
+      gx.strokeStyle='rgba(0,70,160,.1)';gx.stroke();
+    }
+    for(let lng=-180;lng<180;lng+=20){
+      gx.beginPath();let go=false;
+      for(let lat=-90;lat<=90;lat+=3){
+        const phi=(90-lat)*Math.PI/180,th=(lng+G.rot)*Math.PI/180;
+        const x=Math.sin(phi)*Math.sin(th),y0=Math.cos(phi),z0=Math.sin(phi)*Math.cos(th);
+        const y=y0*Math.cos(t)-z0*Math.sin(t),z=y0*Math.sin(t)+z0*Math.cos(t);
+        if(z<0){go=false;continue}
+        go?(gx.lineTo(gCX+x*r,gCY-y*r)):(gx.moveTo(gCX+x*r,gCY-y*r),go=true);
+      }
+      gx.strokeStyle='rgba(0,70,160,.1)';gx.stroke();
+    }
+
+    // Land dots
+    LAND_DOTS.forEach(d=>{
+      const v=v3(d.lat,d.lng);
+      if(v.z<.05)return;
+      const p=px(v);
+      gx.beginPath();gx.arc(p.x,p.y,Math.max(.8,r*.004),0,Math.PI*2);
+      gx.fillStyle=`rgba(30,90,180,${.15+v.z*.25})`;gx.fill();
+    });
+
+    // Toronto reference vector (for convergence bending)
+    const tor=v3(43.7,-79.4);
+
+    // Connections
+    CONN.forEach(([i,j])=>{
+      const a=v3(CITIES[i].lat,CITIES[i].lng);
+      const b=v3(CITIES[j].lat,CITIES[j].lng);
+      const home=i===0||j===0;
+      const alpha=home?(0.22+cv*.65):(Math.max(.04,0.22-cv*.18));
+      const N=64;
+
+      gx.beginPath();let go=false;
+      for(let k=0;k<=N;k++){
+        const f=k/N;
+        let pt=sl(a,b,f);
+        // non-home arcs bend toward Toronto as convergence increases
+        if(cv>0&&!home){
+          const bell=Math.pow(f*(1-f)*4,.5+cv*2);
+          pt={x:pt.x*(1-cv*bell)+tor.x*cv*bell,y:pt.y*(1-cv*bell)+tor.y*cv*bell,z:pt.z*(1-cv*bell)+tor.z*cv*bell};
+          const len=Math.sqrt(pt.x*pt.x+pt.y*pt.y+pt.z*pt.z)||1;
+          pt.x/=len;pt.y/=len;pt.z/=len;
+        }
+        if(pt.z<0){go=false;continue}
+        const p=px(pt);
+        go?(gx.lineTo(p.x,p.y)):(gx.moveTo(p.x,p.y),go=true);
+      }
+      gx.strokeStyle=home?`rgba(0,163,255,${alpha})`:`rgba(0,100,200,${alpha*.7})`;
+      gx.lineWidth=home?(.6+cv*.9):.5;
+      gx.stroke();
+
+      // Traveling packet
+      const pf=((G.time*.28+(i*7.3+j*11.7)*.05)%1);
+      let pv=sl(a,b,pf);
+      if(cv>0&&!home){
+        const bell=Math.pow(pf*(1-pf)*4,.5+cv*2);
+        pv={x:pv.x*(1-cv*bell)+tor.x*cv*bell,y:pv.y*(1-cv*bell)+tor.y*cv*bell,z:pv.z*(1-cv*bell)+tor.z*cv*bell};
+        const len=Math.sqrt(pv.x*pv.x+pv.y*pv.y+pv.z*pv.z)||1;
+        pv.x/=len;pv.y/=len;pv.z/=len;
+      }
+      if(pv.z>0){
+        const p=px(pv);
+        gx.beginPath();gx.arc(p.x,p.y,home?2.2:1.5,0,Math.PI*2);
+        gx.fillStyle=`rgba(0,220,255,${alpha*2.8})`;gx.fill();
+      }
+    });
+
+    // City nodes
+    CITIES.forEach((c,i)=>{
+      const vv=v3(c.lat,c.lng);
+      if(vv.z<0)return;
+      const p=px(vv);
+      const pulse=.5+.5*Math.sin(G.time*2.2+i*1.4);
+      if(c.home){
+        // Toronto: big pulsing glow
+        const gr=r*.15*(1+cv*2.5);
+        const gg=gx.createRadialGradient(p.x,p.y,0,p.x,p.y,gr);
+        gg.addColorStop(0,`rgba(0,200,255,${.35+cv*.55})`);
+        gg.addColorStop(.5,`rgba(0,120,255,${.15+cv*.25})`);
+        gg.addColorStop(1,'rgba(0,60,200,0)');
+        gx.beginPath();gx.arc(p.x,p.y,gr,0,Math.PI*2);gx.fillStyle=gg;gx.fill();
+        // core dot
+        gx.beginPath();gx.arc(p.x,p.y,4+cv*5+pulse*2,0,Math.PI*2);
+        gx.fillStyle=`rgba(0,230,255,${.85+cv*.15})`;gx.fill();
+        // ring
+        gx.beginPath();gx.arc(p.x,p.y,(8+cv*10)*(1+pulse*.15),0,Math.PI*2);
+        gx.strokeStyle=`rgba(0,180,255,${.4+cv*.4})`;gx.lineWidth=1;gx.stroke();
+      } else {
+        gx.beginPath();gx.arc(p.x,p.y,1.8+pulse*.4,0,Math.PI*2);
+        gx.fillStyle=`rgba(0,163,255,${.5-cv*.15})`;gx.fill();
+      }
+    });
+
+    G.time+=.007;
+    requestAnimationFrame(render);
+  }
+  render();
+
+  // GSAP: scroll-drive the globe
+  // Toronto lng=-79.4 → needs G.rot=79.4 to face viewer (lng+rot≈0)
+  // Start: G.rot=-15 (center on ~15°E — central Europe/Africa in view)
+  const tl=gsap.timeline({
+    scrollTrigger:{trigger:'#globe-section',start:'top top',end:'bottom bottom',scrub:2}
   });
-  </script>
+  tl
+    .to(G,{rot:79,duration:.72,ease:'power1.inOut'},0)
+    .to(G,{conv:1,duration:.5,ease:'power2.inOut'},.44)
+    .to(G,{scale:3,duration:.52,ease:'power2.in'},.48)
+    .to('#globe-text',{opacity:1,duration:.18,ease:'power2.out'},.14)
+    .to('#globe-text',{opacity:0,duration:.14,ease:'power2.in'},.76);
+})();
+
+// ── HERO ────────────────────────────────────────────────────────────
+gsap.timeline({delay:.25})
+  .to('#hl',{opacity:1,duration:.9,ease:'power3.out'},0)
+  .to('#hn',{opacity:1,duration:1,ease:'power3.out'},.3)
+  .to('#hs',{opacity:1,duration:.9,ease:'power3.out'},.65)
+  .to('#sc',{opacity:1,duration:.8},.15);
+
+gsap.to('#hn',{yPercent:-20,ease:'none',
+  scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+
+// ── CONTACT ─────────────────────────────────────────────────────────
+gsap.to('#ch',{opacity:1,y:0,duration:.9,ease:'power3.out',
+  scrollTrigger:{trigger:'#contact',start:'top 75%',toggleActions:'play none none reverse'}});
+gsap.to(['#c1','#c2','#c3'],{opacity:1,y:0,duration:.7,ease:'power3.out',stagger:.16,
+  scrollTrigger:{trigger:'.cards',start:'top 80%',toggleActions:'play none none reverse'}});
+</script>
 </body>
 </html>
