@@ -11,21 +11,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --black:#030810;--glow:#00A3FF;--white:#F0F6FF;
-  --muted:#5A7FA8;--glass:rgba(10,20,40,0.6);
-}
+:root{--black:#030810;--glow:#00A3FF;--white:#F0F6FF;--muted:#5A7FA8;--glass:rgba(10,20,40,0.6)}
 html{scroll-behavior:smooth}
 body{background:var(--black);color:var(--white);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
-
 #cursor{position:fixed;z-index:9999;pointer-events:none;width:12px;height:12px;border-radius:50%;background:var(--glow);transform:translate(-50%,-50%);transition:width .3s,height .3s;mix-blend-mode:screen;left:-100px;top:-100px}
 #cursor-ring{position:fixed;z-index:9998;pointer-events:none;width:40px;height:40px;border-radius:50%;border:1px solid rgba(0,163,255,.4);transform:translate(-50%,-50%);transition:width .4s,height .4s;left:-100px;top:-100px}
-
 #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
-
 section{position:relative;z-index:2}
-
-/* HERO */
 #hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
 .hero-label{font-family:'Space Mono',monospace;font-size:clamp(.6rem,1.2vw,.78rem);letter-spacing:.35em;color:var(--glow);text-transform:uppercase;opacity:0;margin-bottom:1.6rem}
 .hero-name{font-size:clamp(3rem,10vw,9rem);font-weight:700;line-height:.95;text-align:center;letter-spacing:-.03em;background:linear-gradient(135deg,#fff 30%,#4A90E2 70%,var(--glow) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0}
@@ -34,22 +26,16 @@ section{position:relative;z-index:2}
 .scroll-cue span{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
 .scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--glow),transparent);animation:sLine 1.8s ease-in-out infinite}
 @keyframes sLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-
-/* GLOBE SECTION */
-#globe-section{height:380vh;position:relative}
+#globe-section{height:440vh;position:relative}
 .globe-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 #globe-canvas{position:absolute;inset:0;width:100%;height:100%}
-.globe-text{position:absolute;bottom:9vh;left:50%;transform:translateX(-50%);z-index:10;opacity:0;pointer-events:none;text-align:center;white-space:nowrap}
-.globe-text h2{font-size:clamp(1.2rem,3.5vw,2.8rem);font-weight:300;letter-spacing:.14em;color:var(--white);text-shadow:0 0 60px rgba(0,0,0,.9),0 0 120px rgba(0,0,0,.7)}
-
-/* MARQUEE */
+.globe-text{position:absolute;bottom:10vh;left:50%;transform:translateX(-50%);z-index:10;opacity:0;pointer-events:none;text-align:center;white-space:nowrap}
+.globe-text h2{font-size:clamp(1.2rem,3.5vw,2.8rem);font-weight:300;letter-spacing:.14em;color:var(--white);text-shadow:0 0 60px rgba(0,0,0,.95),0 0 120px rgba(0,0,0,.8)}
 .marquee-wrap{position:relative;z-index:2;overflow:hidden;border-top:1px solid rgba(0,163,255,.06);border-bottom:1px solid rgba(0,163,255,.06);padding:.9rem 0;margin-bottom:4vh;white-space:nowrap}
 .marquee-track{display:inline-flex;gap:4rem;animation:mq 22s linear infinite}
 .marquee-track span{font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.3em;color:rgba(0,163,255,.28);text-transform:uppercase;user-select:none}
 .marquee-track .acc{color:rgba(0,163,255,.6)}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* CONTACT */
 #contact{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8vh 2rem;gap:3rem}
 .contact-headline{text-align:center;opacity:0;transform:translateY(40px)}
 .contact-headline h2{font-size:clamp(2.5rem,7vw,6rem);font-weight:700;letter-spacing:-.04em;background:linear-gradient(135deg,#fff,var(--glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
@@ -63,19 +49,15 @@ section{position:relative;z-index:2}
 .card-icon svg{width:20px;height:20px;stroke:var(--glow);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .card-label{font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.3em;color:var(--muted);text-transform:uppercase}
 .card-value{font-size:clamp(.9rem,1.8vw,1.05rem);font-weight:500;color:var(--white);word-break:break-all}
-
 footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem 4rem;font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.2em;color:rgba(90,127,168,.35);text-transform:uppercase}
-
 @media(max-width:600px){.card{flex:1 1 100%}body{cursor:auto}#cursor,#cursor-ring{display:none}}
 </style>
 </head>
 <body>
-
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 <canvas id="stars"></canvas>
 
-<!-- HERO -->
 <section id="hero">
   <p class="hero-label" id="hl">Toronto &middot; Ontario &middot; Canada</p>
   <h1 class="hero-name" id="hn">Ivan Ivanov</h1>
@@ -83,7 +65,6 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem 4rem;font
   <div class="scroll-cue" id="sc"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- GLOBE -->
 <section id="globe-section">
   <div class="globe-sticky">
     <canvas id="globe-canvas"></canvas>
@@ -91,30 +72,19 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem 4rem;font
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
-    <span class="acc">Ivan Ivanov</span><span>&middot;</span>
-    <span>ivanbiv.com</span><span>&middot;</span>
-    <span class="acc">Let&rsquo;s connect</span><span>&middot;</span>
-    <span>Toronto</span><span>&middot;</span>
-    <span class="acc">ivan@ivanbiv.com</span><span>&middot;</span>
-    <span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
-    <span class="acc">Ivan Ivanov</span><span>&middot;</span>
-    <span>ivanbiv.com</span><span>&middot;</span>
-    <span class="acc">Let&rsquo;s connect</span><span>&middot;</span>
-    <span>Toronto</span><span>&middot;</span>
-    <span class="acc">ivan@ivanbiv.com</span><span>&middot;</span>
-    <span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
+    <span class="acc">Ivan Ivanov</span><span>&middot;</span><span>ivanbiv.com</span><span>&middot;</span>
+    <span class="acc">Let&rsquo;s connect</span><span>&middot;</span><span>Toronto</span><span>&middot;</span>
+    <span class="acc">ivan@ivanbiv.com</span><span>&middot;</span><span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
+    <span class="acc">Ivan Ivanov</span><span>&middot;</span><span>ivanbiv.com</span><span>&middot;</span>
+    <span class="acc">Let&rsquo;s connect</span><span>&middot;</span><span>Toronto</span><span>&middot;</span>
+    <span class="acc">ivan@ivanbiv.com</span><span>&middot;</span><span>+1&nbsp;437&#8209;440&#8209;4049</span><span>&middot;</span>
   </div>
 </div>
 
-<!-- CONTACT -->
 <section id="contact">
-  <div class="contact-headline" id="ch">
-    <h2>Say hello.</h2>
-    <p>No pitch. No agenda. Just a conversation.</p>
-  </div>
+  <div class="contact-headline" id="ch"><h2>Say hello.</h2><p>No pitch. No agenda. Just a conversation.</p></div>
   <div class="cards">
     <a class="card" id="c1" href="mailto:ivan@ivanbiv.com">
       <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></div>
@@ -130,7 +100,6 @@ footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem 4rem;font
     </a>
   </div>
 </section>
-
 <footer><p>&copy; 2026 Ivan Ivanov &nbsp;&middot;&nbsp; Toronto, Ontario</p></footer>
 
 <script>
@@ -146,7 +115,7 @@ document.querySelectorAll('.card').forEach(el=>{
   el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';ring.style.width='40px';ring.style.height='40px'});
 });
 
-// ── STARFIELD ───────────────────────────────────────────────────────
+// ── STARS ───────────────────────────────────────────────────────────
 (function(){
   const c=document.getElementById('stars'),x=c.getContext('2d');
   let W,H,S=[];
@@ -154,265 +123,421 @@ document.querySelectorAll('.card').forEach(el=>{
   rsz();window.addEventListener('resize',rsz);
   for(let i=0;i<220;i++)S.push({x:Math.random(),y:Math.random(),r:Math.random()*1.3+.2,ph:Math.random()*Math.PI*2});
   let t=0;
-  (function draw(){x.clearRect(0,0,W,H);t+=.004;S.forEach(s=>{const a=.1+.45*(.5+.5*Math.sin(t*1.8+s.ph));x.beginPath();x.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);x.fillStyle=`rgba(140,190,255,${a})`;x.fill()});requestAnimationFrame(draw)})();
+  (function draw(){x.clearRect(0,0,W,H);t+=.004;S.forEach(s=>{const a=.08+.4*(.5+.5*Math.sin(t*1.8+s.ph));x.beginPath();x.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);x.fillStyle=`rgba(140,190,255,${a})`;x.fill()});requestAnimationFrame(draw)})();
 })();
 
-// ── GLOBE ───────────────────────────────────────────────────────────
+// ── MAIN CANVAS ─────────────────────────────────────────────────────
 (function(){
-  // Seeded RNG for deterministic land dots
-  let _s=12345;
+  // Seeded RNG
+  let _s=73491;
   const rng=()=>{_s=Math.imul(1664525,_s)+1013904223|0;return(_s>>>0)/4294967296};
 
-  // Land dot regions [latMin,latMax,lngMin,lngMax,count]
-  const REGIONS=[
-    [25,72,-140,-52,90],   // North America
-    [-55,12,-81,-34,60],   // South America
-    [35,71,-12,45,80],     // Europe
-    [-35,37,-18,52,90],    // Africa
-    [10,70,26,145,140],    // Asia
-    [-40,-10,113,155,40],  // Australia
-    [60,75,-25,50,20],     // Arctic fringe
+  // ── GLOBE DATA ──────────────────────────────────────────────────
+  const CITIES=[
+    {lat:43.7, lng:-79.4, home:true},  // 0 Toronto
+    {lat:40.7, lng:-74.0},             // 1 New York
+    {lat:41.9, lng:-87.6},             // 2 Chicago
+    {lat:34.0, lng:-118.2},            // 3 LA
+    {lat:49.3, lng:-123.1},            // 4 Vancouver
+    {lat:45.5, lng:-73.6},             // 5 Montreal
+    {lat:19.4, lng:-99.1},             // 6 Mexico City
+    {lat:-23.5,lng:-46.6},             // 7 Sao Paulo
+    {lat:-34.6,lng:-58.4},             // 8 Buenos Aires
+    {lat:51.5, lng:-0.1},              // 9 London
+    {lat:52.4, lng:4.9},               // 10 Amsterdam
+    {lat:50.1, lng:8.7},               // 11 Frankfurt
+    {lat:48.9, lng:2.3},               // 12 Paris
+    {lat:55.8, lng:37.6},              // 13 Moscow
+    {lat:30.1, lng:31.2},              // 14 Cairo
+    {lat:-26.2,lng:28.0},              // 15 Johannesburg
+    {lat:25.2, lng:55.3},              // 16 Dubai
+    {lat:19.1, lng:72.9},              // 17 Mumbai
+    {lat:1.4,  lng:103.8},             // 18 Singapore
+    {lat:22.3, lng:114.2},             // 19 Hong Kong
+    {lat:39.9, lng:116.4},             // 20 Beijing
+    {lat:35.7, lng:139.7},             // 21 Tokyo
+    {lat:37.6, lng:127.0},             // 22 Seoul
+    {lat:-33.9,lng:151.2},             // 23 Sydney
   ];
-  const LAND_DOTS=[];
-  REGIONS.forEach(([la,lb,lo,lp,n])=>{
-    for(let i=0;i<n;i++)LAND_DOTS.push({lat:la+rng()*(lb-la),lng:lo+rng()*(lp-lo)});
+  const CONN=[
+    [0,1],[0,2],[0,3],[0,5],[0,9],[0,11],[0,21],[0,23],[0,7],[0,18],[0,16],[0,13],
+    [1,2],[1,9],[1,7],[2,3],[3,4],[4,0],[3,21],[5,0],[6,7],[7,8],[8,0],
+    [9,10],[9,11],[9,12],[9,13],[9,14],[10,11],[11,13],[12,13],
+    [14,15],[14,16],[15,7],[16,17],[17,18],[18,19],[18,23],[19,20],[19,21],[20,21],[21,22],[22,23],[13,16],
+  ];
+
+  // Land mass dots
+  const LAND=[];
+  [[25,72,-140,-52,80],[-55,12,-81,-34,55],[35,71,-12,45,75],[-35,37,-18,52,85],[10,70,26,145,130],[-40,-10,113,155,35],[60,75,-25,50,18]].forEach(([la,lb,lo,lp,n])=>{
+    for(let i=0;i<n;i++)LAND.push({lat:la+rng()*(lb-la),lng:lo+rng()*(lp-lo)});
   });
 
-  const CITIES=[
-    {n:'Toronto',   lat:43.7,  lng:-79.4,  home:true},
-    {n:'New York',  lat:40.7,  lng:-74.0},
-    {n:'Chicago',   lat:41.9,  lng:-87.6},
-    {n:'L.A.',      lat:34.0,  lng:-118.2},
-    {n:'Vancouver', lat:49.3,  lng:-123.1},
-    {n:'Montreal',  lat:45.5,  lng:-73.6},
-    {n:'Mexico City',lat:19.4, lng:-99.1},
-    {n:'Sao Paulo', lat:-23.5, lng:-46.6},
-    {n:'Buenos Aires',lat:-34.6,lng:-58.4},
-    {n:'London',    lat:51.5,  lng:-0.1},
-    {n:'Amsterdam', lat:52.4,  lng:4.9},
-    {n:'Frankfurt', lat:50.1,  lng:8.7},
-    {n:'Paris',     lat:48.9,  lng:2.3},
-    {n:'Madrid',    lat:40.4,  lng:-3.7},
-    {n:'Moscow',    lat:55.8,  lng:37.6},
-    {n:'Istanbul',  lat:41.0,  lng:28.9},
-    {n:'Cairo',     lat:30.1,  lng:31.2},
-    {n:'Lagos',     lat:6.5,   lng:3.4},
-    {n:'Johannesburg',lat:-26.2,lng:28.0},
-    {n:'Dubai',     lat:25.2,  lng:55.3},
-    {n:'Mumbai',    lat:19.1,  lng:72.9},
-    {n:'Singapore', lat:1.4,   lng:103.8},
-    {n:'Hong Kong', lat:22.3,  lng:114.2},
-    {n:'Shanghai',  lat:31.2,  lng:121.5},
-    {n:'Beijing',   lat:39.9,  lng:116.4},
-    {n:'Tokyo',     lat:35.7,  lng:139.7},
-    {n:'Seoul',     lat:37.6,  lng:127.0},
-    {n:'Sydney',    lat:-33.9, lng:151.2},
+  // ── SKYLINE DATA ────────────────────────────────────────────────
+  // Each building: x(center frac), w(width frac), h(height frac of canvas), s(shape), win(windows)
+  const BLDGS=[
+    {x:.04, w:.035,h:.07, s:'r'},
+    {x:.08, w:.025,h:.11, s:'r', win:1},
+    {x:.11, w:.04, h:.17, s:'r', win:1},
+    {x:.16, w:.025,h:.13, s:'r'},
+    {x:.19, w:.08, h:.09, s:'dome'},          // Rogers Centre
+    {x:.26, w:.03, h:.16, s:'r', win:1},
+    {x:.30, w:.035,h:.22, s:'r', win:1},
+    // gap for CN Tower at x=0.37
+    {x:.44, w:.03, h:.18, s:'r', win:1},
+    {x:.48, w:.04, h:.24, s:'step',win:1},
+    {x:.52, w:.035,h:.29, s:'r', win:1},
+    {x:.56, w:.03, h:.25, s:'r', win:1},
+    {x:.60, w:.04, h:.38, s:'slope',win:1},   // Scotia Plaza
+    {x:.645,w:.03, h:.33, s:'r', win:1},
+    {x:.685,w:.045,h:.46, s:'r', win:1},      // First Canadian Place (tallest)
+    {x:.735,w:.04, h:.40, s:'r', win:1},      // TD Tower
+    {x:.775,w:.035,h:.36, s:'r', win:1},
+    {x:.815,w:.035,h:.31, s:'r', win:1},      // Royal Bank N
+    {x:.855,w:.03, h:.28, s:'r', win:1},      // Royal Bank S
+    {x:.89, w:.035,h:.22, s:'r', win:1},
+    {x:.93, w:.03, h:.16, s:'r'},
+    {x:.965,w:.04, h:.11, s:'r'},
+    {x:1.0, w:.025,h:.07, s:'r'},
   ];
 
-  // Connection pairs (indices)
-  const CONN=[
-    // Toronto hub
-    [0,1],[0,2],[0,3],[0,5],[0,9],[0,11],[0,25],[0,27],[0,7],[0,21],[0,19],[0,14],
-    // Americas backbone
-    [1,2],[2,3],[3,4],[1,5],[1,7],[3,6],[6,7],[7,8],
-    // Europe cluster
-    [9,10],[9,11],[9,12],[9,13],[10,11],[11,14],[12,15],[13,16],
-    // Africa/ME
-    [15,19],[16,17],[17,18],[18,27],[16,19],[19,20],
-    // Asia web
-    [19,20],[20,21],[21,22],[21,23],[22,23],[23,24],[24,25],[25,26],[26,27],[27,23],
-    // Cross-ocean
-    [9,1],[9,14],[3,25],[27,3],[11,20],[21,27],
-  ];
+  // Pre-generate window lights
+  const WINDOWS=[];
+  BLDGS.forEach((b,bi)=>{
+    if(!b.win)return;
+    const cols=Math.max(2,Math.round(b.w*90));
+    const rows=Math.max(3,Math.round(b.h*110));
+    for(let c=0;c<cols;c++)for(let r=0;r<rows;r++){
+      if(rng()>.40)continue;
+      WINDOWS.push({bi,fx:(c+.5)/cols,fy:(r+.5)/rows,ph:rng()*Math.PI*2,warm:rng()>.5,bright:rng()>.75});
+    }
+  });
 
+  // ── CANVAS SETUP ────────────────────────────────────────────────
   const gc=document.getElementById('globe-canvas');
   const gx=gc.getContext('2d');
   let gW,gH,gCX,gCY,gR;
   function rsz(){gW=gc.width=gc.offsetWidth;gH=gc.height=gc.offsetHeight;gCX=gW/2;gCY=gH/2;gR=Math.min(gW,gH)*.37}
   rsz();window.addEventListener('resize',rsz);
 
-  // GSAP-animated state
-  const G={rot:-15,tilt:18,scale:1,conv:0,time:0};
+  // Animated state (GSAP writes into this)
+  const S={rot:-15,tilt:18,scale:1,conv:0,gAlpha:1,skyP:0,time:0};
 
-  // lat/lng → 3D unit vector with Y-rotation (G.rot) + X-tilt (G.tilt)
+  // Globe math
   function v3(lat,lng){
-    const phi=(90-lat)*Math.PI/180;
-    const th=(lng+G.rot)*Math.PI/180;
-    const tilt=G.tilt*Math.PI/180;
-    const x=Math.sin(phi)*Math.sin(th);
-    const y0=Math.cos(phi);
-    const z0=Math.sin(phi)*Math.cos(th);
+    const phi=(90-lat)*Math.PI/180,th=(lng+S.rot)*Math.PI/180,tilt=S.tilt*Math.PI/180;
+    const x=Math.sin(phi)*Math.sin(th),y0=Math.cos(phi),z0=Math.sin(phi)*Math.cos(th);
     return{x,y:y0*Math.cos(tilt)-z0*Math.sin(tilt),z:y0*Math.sin(tilt)+z0*Math.cos(tilt)};
   }
-
-  // Slerp two unit vectors
   function sl(a,b,t){
-    const d=Math.min(1,Math.max(-1,a.x*b.x+a.y*b.y+a.z*b.z));
-    const om=Math.acos(d);
+    const d=Math.min(1,Math.max(-1,a.x*b.x+a.y*b.y+a.z*b.z)),om=Math.acos(d);
     if(om<.001)return{x:a.x+t*(b.x-a.x),y:a.y+t*(b.y-a.y),z:a.z+t*(b.z-a.z)};
     const s=Math.sin(om),s1=Math.sin((1-t)*om)/s,s2=Math.sin(t*om)/s;
     return{x:s1*a.x+s2*b.x,y:s1*a.y+s2*b.y,z:s1*a.z+s2*b.z};
   }
+  // Project — globe moves up as skyline rises (becomes sky)
+  function prj(v){
+    const r=gR*S.scale,yShift=S.skyP*gH*.30;
+    return{x:gCX+v.x*r,y:gCY-v.y*r-yShift,z:v.z};
+  }
 
-  function px(v){const r=gR*G.scale;return{x:gCX+v.x*r,y:gCY-v.y*r,z:v.z}}
+  // ── GLOBE DRAW ──────────────────────────────────────────────────
+  function drawGlobe(){
+    const ga=S.gAlpha,r=gR*S.scale,yShift=S.skyP*gH*.30,gcy=gCY-yShift;
 
-  function render(){
-    gx.clearRect(0,0,gW,gH);
-    const r=gR*G.scale,cv=G.conv,t=G.tilt*Math.PI/180;
+    // Atmosphere
+    const ag=gx.createRadialGradient(gCX,gcy,r*.8,gCX,gcy,r*1.35);
+    ag.addColorStop(0,'rgba(0,60,160,0)');ag.addColorStop(.5,`rgba(0,50,160,${ga*.09})`);ag.addColorStop(1,'rgba(0,30,100,0)');
+    gx.beginPath();gx.arc(gCX,gcy,r*1.35,0,Math.PI*2);gx.fillStyle=ag;gx.fill();
 
-    // Outer atmosphere
-    const ag=gx.createRadialGradient(gCX,gCY,r*.8,gCX,gCY,r*1.35);
-    ag.addColorStop(0,'rgba(0,60,160,0)');
-    ag.addColorStop(.5,'rgba(0,50,160,.09)');
-    ag.addColorStop(1,'rgba(0,30,100,0)');
-    gx.beginPath();gx.arc(gCX,gCY,r*1.35,0,Math.PI*2);gx.fillStyle=ag;gx.fill();
+    // Sphere body
+    const sg=gx.createRadialGradient(gCX-r*.28,gcy-r*.28,r*.05,gCX,gcy,r);
+    sg.addColorStop(0,`rgba(12,32,80,${ga*.97})`);sg.addColorStop(.65,`rgba(3,10,30,${ga*.99})`);sg.addColorStop(1,`rgba(2,6,20,${ga})`);
+    gx.beginPath();gx.arc(gCX,gcy,r,0,Math.PI*2);gx.fillStyle=sg;gx.fill();
+    gx.strokeStyle=`rgba(0,90,210,${ga*.3})`;gx.lineWidth=1.5;gx.stroke();
 
-    // Globe sphere
-    const sg=gx.createRadialGradient(gCX-r*.28,gCY-r*.28,r*.05,gCX,gCY,r);
-    sg.addColorStop(0,'rgba(12,32,80,.97)');
-    sg.addColorStop(.65,'rgba(3,10,30,.99)');
-    sg.addColorStop(1,'rgba(2,6,20,1)');
-    gx.beginPath();gx.arc(gCX,gCY,r,0,Math.PI*2);gx.fillStyle=sg;gx.fill();
-
-    // Rim glow
-    gx.beginPath();gx.arc(gCX,gCY,r,0,Math.PI*2);
-    gx.strokeStyle='rgba(0,90,210,.3)';gx.lineWidth=1.5;gx.stroke();
-
-    // Grid lines
-    gx.lineWidth=.5;
+    // Grid
+    const tilt=S.tilt*Math.PI/180;
     for(let lat=-60;lat<=60;lat+=20){
       const phi=(90-lat)*Math.PI/180,y0=Math.cos(phi),rl=Math.sin(phi);
       gx.beginPath();let go=false;
       for(let lng=-180;lng<=180;lng+=3){
-        const th=(lng+G.rot)*Math.PI/180;
-        const x=rl*Math.sin(th),z0=rl*Math.cos(th);
-        const y=y0*Math.cos(t)-z0*Math.sin(t),z=y0*Math.sin(t)+z0*Math.cos(t);
+        const th=(lng+S.rot)*Math.PI/180,x=rl*Math.sin(th),z0=rl*Math.cos(th);
+        const y=y0*Math.cos(tilt)-z0*Math.sin(tilt),z=y0*Math.sin(tilt)+z0*Math.cos(tilt);
         if(z<0){go=false;continue}
-        go?(gx.lineTo(gCX+x*r,gCY-y*r)):(gx.moveTo(gCX+x*r,gCY-y*r),go=true);
+        go?gx.lineTo(gCX+x*r,gcy-y*r):(gx.moveTo(gCX+x*r,gcy-y*r),go=true);
       }
-      gx.strokeStyle='rgba(0,70,160,.1)';gx.stroke();
+      gx.strokeStyle=`rgba(0,70,160,${ga*.10})`;gx.lineWidth=.5;gx.stroke();
     }
     for(let lng=-180;lng<180;lng+=20){
       gx.beginPath();let go=false;
       for(let lat=-90;lat<=90;lat+=3){
-        const phi=(90-lat)*Math.PI/180,th=(lng+G.rot)*Math.PI/180;
+        const phi=(90-lat)*Math.PI/180,th=(lng+S.rot)*Math.PI/180;
         const x=Math.sin(phi)*Math.sin(th),y0=Math.cos(phi),z0=Math.sin(phi)*Math.cos(th);
-        const y=y0*Math.cos(t)-z0*Math.sin(t),z=y0*Math.sin(t)+z0*Math.cos(t);
+        const y=y0*Math.cos(tilt)-z0*Math.sin(tilt),z=y0*Math.sin(tilt)+z0*Math.cos(tilt);
         if(z<0){go=false;continue}
-        go?(gx.lineTo(gCX+x*r,gCY-y*r)):(gx.moveTo(gCX+x*r,gCY-y*r),go=true);
+        go?gx.lineTo(gCX+x*r,gcy-y*r):(gx.moveTo(gCX+x*r,gcy-y*r),go=true);
       }
-      gx.strokeStyle='rgba(0,70,160,.1)';gx.stroke();
+      gx.strokeStyle=`rgba(0,70,160,${ga*.10})`;gx.lineWidth=.5;gx.stroke();
     }
 
     // Land dots
-    LAND_DOTS.forEach(d=>{
-      const v=v3(d.lat,d.lng);
-      if(v.z<.05)return;
-      const p=px(v);
-      gx.beginPath();gx.arc(p.x,p.y,Math.max(.8,r*.004),0,Math.PI*2);
-      gx.fillStyle=`rgba(30,90,180,${.15+v.z*.25})`;gx.fill();
+    LAND.forEach(d=>{
+      const vv=v3(d.lat,d.lng);if(vv.z<.05)return;
+      const p=prj(vv);
+      gx.beginPath();gx.arc(p.x,p.y,Math.max(.8,r*.0035),0,Math.PI*2);
+      gx.fillStyle=`rgba(30,90,180,${ga*(.15+vv.z*.22)})`;gx.fill();
     });
 
-    // Toronto reference vector (for convergence bending)
-    const tor=v3(43.7,-79.4);
-
     // Connections
+    const tor=v3(43.7,-79.4);
     CONN.forEach(([i,j])=>{
-      const a=v3(CITIES[i].lat,CITIES[i].lng);
-      const b=v3(CITIES[j].lat,CITIES[j].lng);
-      const home=i===0||j===0;
-      const alpha=home?(0.22+cv*.65):(Math.max(.04,0.22-cv*.18));
-      const N=64;
-
+      const a=v3(CITIES[i].lat,CITIES[i].lng),b=v3(CITIES[j].lat,CITIES[j].lng);
+      const home=i===0||j===0,cv=S.conv;
+      const alpha=home?(0.22+cv*.65)*ga:Math.max(.04,(0.22-cv*.18))*ga;
+      const N=60;
       gx.beginPath();let go=false;
       for(let k=0;k<=N;k++){
-        const f=k/N;
-        let pt=sl(a,b,f);
-        // non-home arcs bend toward Toronto as convergence increases
+        const f=k/N;let pt=sl(a,b,f);
         if(cv>0&&!home){
-          const bell=Math.pow(f*(1-f)*4,.5+cv*2);
+          const bell=Math.pow(Math.max(0,f*(1-f)*4),.5+cv*2);
           pt={x:pt.x*(1-cv*bell)+tor.x*cv*bell,y:pt.y*(1-cv*bell)+tor.y*cv*bell,z:pt.z*(1-cv*bell)+tor.z*cv*bell};
-          const len=Math.sqrt(pt.x*pt.x+pt.y*pt.y+pt.z*pt.z)||1;
-          pt.x/=len;pt.y/=len;pt.z/=len;
+          const len=Math.sqrt(pt.x*pt.x+pt.y*pt.y+pt.z*pt.z)||1;pt.x/=len;pt.y/=len;pt.z/=len;
         }
         if(pt.z<0){go=false;continue}
-        const p=px(pt);
-        go?(gx.lineTo(p.x,p.y)):(gx.moveTo(p.x,p.y),go=true);
+        const p=prj(pt);go?gx.lineTo(p.x,p.y):(gx.moveTo(p.x,p.y),go=true);
       }
       gx.strokeStyle=home?`rgba(0,163,255,${alpha})`:`rgba(0,100,200,${alpha*.7})`;
-      gx.lineWidth=home?(.6+cv*.9):.5;
-      gx.stroke();
+      gx.lineWidth=home?(.6+cv*.9):.5;gx.stroke();
 
-      // Traveling packet
-      const pf=((G.time*.28+(i*7.3+j*11.7)*.05)%1);
+      // Packet dot
+      const pf=((S.time*.28+(i*7.3+j*11.7)*.05)%1);
       let pv=sl(a,b,pf);
       if(cv>0&&!home){
-        const bell=Math.pow(pf*(1-pf)*4,.5+cv*2);
+        const bell=Math.pow(Math.max(0,pf*(1-pf)*4),.5+cv*2);
         pv={x:pv.x*(1-cv*bell)+tor.x*cv*bell,y:pv.y*(1-cv*bell)+tor.y*cv*bell,z:pv.z*(1-cv*bell)+tor.z*cv*bell};
-        const len=Math.sqrt(pv.x*pv.x+pv.y*pv.y+pv.z*pv.z)||1;
-        pv.x/=len;pv.y/=len;pv.z/=len;
+        const len=Math.sqrt(pv.x*pv.x+pv.y*pv.y+pv.z*pv.z)||1;pv.x/=len;pv.y/=len;pv.z/=len;
       }
-      if(pv.z>0){
-        const p=px(pv);
-        gx.beginPath();gx.arc(p.x,p.y,home?2.2:1.5,0,Math.PI*2);
-        gx.fillStyle=`rgba(0,220,255,${alpha*2.8})`;gx.fill();
-      }
+      if(pv.z>0){const p=prj(pv);gx.beginPath();gx.arc(p.x,p.y,home?2.2:1.5,0,Math.PI*2);gx.fillStyle=`rgba(0,220,255,${alpha*2.8})`;gx.fill();}
     });
 
     // City nodes
     CITIES.forEach((c,i)=>{
-      const vv=v3(c.lat,c.lng);
-      if(vv.z<0)return;
-      const p=px(vv);
-      const pulse=.5+.5*Math.sin(G.time*2.2+i*1.4);
+      const vv=v3(c.lat,c.lng);if(vv.z<0)return;
+      const p=prj(vv),pulse=.5+.5*Math.sin(S.time*2.2+i*1.4);
       if(c.home){
-        // Toronto: big pulsing glow
-        const gr=r*.15*(1+cv*2.5);
-        const gg=gx.createRadialGradient(p.x,p.y,0,p.x,p.y,gr);
-        gg.addColorStop(0,`rgba(0,200,255,${.35+cv*.55})`);
-        gg.addColorStop(.5,`rgba(0,120,255,${.15+cv*.25})`);
-        gg.addColorStop(1,'rgba(0,60,200,0)');
-        gx.beginPath();gx.arc(p.x,p.y,gr,0,Math.PI*2);gx.fillStyle=gg;gx.fill();
-        // core dot
-        gx.beginPath();gx.arc(p.x,p.y,4+cv*5+pulse*2,0,Math.PI*2);
-        gx.fillStyle=`rgba(0,230,255,${.85+cv*.15})`;gx.fill();
-        // ring
-        gx.beginPath();gx.arc(p.x,p.y,(8+cv*10)*(1+pulse*.15),0,Math.PI*2);
-        gx.strokeStyle=`rgba(0,180,255,${.4+cv*.4})`;gx.lineWidth=1;gx.stroke();
+        const gr=gx.createRadialGradient(p.x,p.y,0,p.x,p.y,r*.14*(1+S.conv*2.2));
+        gr.addColorStop(0,`rgba(0,200,255,${ga*(.35+S.conv*.5)})`);gr.addColorStop(.5,`rgba(0,120,255,${ga*(.15+S.conv*.2)})`);gr.addColorStop(1,'rgba(0,60,200,0)');
+        gx.beginPath();gx.arc(p.x,p.y,r*.14*(1+S.conv*2.2),0,Math.PI*2);gx.fillStyle=gr;gx.fill();
+        gx.beginPath();gx.arc(p.x,p.y,4+S.conv*5+pulse*2,0,Math.PI*2);gx.fillStyle=`rgba(0,230,255,${ga*(.85+S.conv*.15)})`;gx.fill();
+        gx.beginPath();gx.arc(p.x,p.y,(8+S.conv*10)*(1+pulse*.12),0,Math.PI*2);gx.strokeStyle=`rgba(0,180,255,${ga*(.4+S.conv*.4)})`;gx.lineWidth=1;gx.stroke();
       } else {
-        gx.beginPath();gx.arc(p.x,p.y,1.8+pulse*.4,0,Math.PI*2);
-        gx.fillStyle=`rgba(0,163,255,${.5-cv*.15})`;gx.fill();
+        gx.beginPath();gx.arc(p.x,p.y,1.8+pulse*.4,0,Math.PI*2);gx.fillStyle=`rgba(0,163,255,${ga*(.5-S.conv*.12)})`;gx.fill();
       }
     });
+  }
 
-    G.time+=.007;
+  // ── SKYLINE DRAW ────────────────────────────────────────────────
+  const GND=.915; // ground as fraction of canvas height
+
+  function bprog(bi){
+    const b=BLDGS[bi],stag=Math.abs(b.x-.45)*.10;
+    return Math.min(1,Math.max(0,(S.skyP-stag)/(1-stag)));
+  }
+
+  function drawBuilding(b,bi){
+    const prog=bprog(bi);if(prog<=0)return;
+    const groundY=gH*GND,bh=b.h*gH*prog,bw=b.w*gW,bx=b.x*gW-bw/2,by=groundY-bh;
+    gx.fillStyle='#010810';
+    if(b.s==='dome'){
+      gx.beginPath();
+      gx.ellipse(b.x*gW,groundY-bh*.6,bw/2,bh*.62,0,Math.PI,0,true);
+      gx.lineTo(b.x*gW+bw/2,groundY);gx.lineTo(b.x*gW-bw/2,groundY);gx.closePath();gx.fill();
+      gx.fillRect(bx+bw*.08,groundY-bh*.28,bw*.84,bh*.28);
+    } else if(b.s==='slope'){
+      gx.beginPath();gx.moveTo(bx,groundY);gx.lineTo(bx,by);gx.lineTo(bx+bw*.72,by);
+      gx.lineTo(bx+bw,by+bh*.18);gx.lineTo(bx+bw,groundY);gx.closePath();gx.fill();
+    } else if(b.s==='step'){
+      gx.fillRect(bx,by+bh*.28,bw,bh*.72);
+      gx.fillRect(bx+bw*.14,by,bw*.72,bh*.30);
+    } else {
+      gx.fillRect(bx,by,bw,bh);
+    }
+  }
+
+  function drawWindows(){
+    if(S.skyP<.22)return;
+    const wa=Math.min(1,(S.skyP-.22)/.45),groundY=gH*GND;
+    WINDOWS.forEach(w=>{
+      const b=BLDGS[w.bi],prog=bprog(w.bi);if(prog<.15)return;
+      const bh=b.h*gH*prog,bw=b.w*gW,bx=b.x*gW-bw/2,by=groundY-bh;
+      const wx=bx+w.fx*bw,wy=by+w.fy*bh;
+      const fl=.72+.28*Math.sin(S.time*.85+w.ph);
+      const a=wa*fl*Math.min(1,prog*4);
+      const sz=Math.max(1,Math.min(gW*.0045,3.5));
+      gx.fillStyle=w.warm?`rgba(255,208,128,${a*(w.bright?.88:.55)})`:`rgba(195,228,255,${a*(w.bright?.65:.38)})`;
+      gx.fillRect(wx-sz/2,wy-sz/2,sz,sz);
+    });
+  }
+
+  function drawCNTower(){
+    const prog=Math.min(1,Math.max(0,(S.skyP-.04)/.72));if(prog<=0)return;
+    const cx=gW*.37,groundY=gH*GND;
+    const tH=gH*.52*prog,top=groundY-tH;
+
+    // Key y-levels
+    const yPodBot=groundY-tH*.70,yPodTop=groundY-tH*.77,yUpper=groundY-tH*.87,yTip=top-gH*.016;
+    const podMid=(yPodBot+yPodTop)/2;
+
+    // Key half-widths
+    const bW=gW*.038,sW=gW*.0065,pW=gW*.027,aW=gW*.0022;
+
+    // Tower silhouette
+    gx.beginPath();
+    gx.moveTo(cx-bW,groundY);gx.lineTo(cx+bW,groundY);
+    gx.lineTo(cx+sW,groundY-tH*.38);gx.lineTo(cx+sW,yPodBot);
+    gx.lineTo(cx+pW,yPodBot);gx.lineTo(cx+pW,yPodTop);
+    gx.lineTo(cx+sW,yPodTop);gx.lineTo(cx+aW,yUpper);
+    gx.lineTo(cx+aW,top);gx.lineTo(cx,yTip);
+    gx.lineTo(cx-aW,top);gx.lineTo(cx-aW,yUpper);
+    gx.lineTo(cx-sW,yPodTop);gx.lineTo(cx-pW,yPodTop);
+    gx.lineTo(cx-pW,yPodBot);gx.lineTo(cx-sW,yPodBot);
+    gx.lineTo(cx-sW,groundY-tH*.38);gx.lineTo(cx-bW,groundY);
+    gx.closePath();
+    gx.fillStyle='#010610';gx.fill();
+    gx.strokeStyle=`rgba(0,100,200,${S.skyP*.22})`;gx.lineWidth=.8;gx.stroke();
+
+    // Pod atmospheric glow
+    const pg=gx.createRadialGradient(cx,podMid,0,cx,podMid,pW*5);
+    pg.addColorStop(0,`rgba(0,160,255,${S.skyP*.45})`);pg.addColorStop(1,'rgba(0,80,180,0)');
+    gx.beginPath();gx.arc(cx,podMid,pW*5,0,Math.PI*2);gx.fillStyle=pg;gx.fill();
+
+    // Pod window ring lights
+    if(S.skyP>.35){
+      const pa=(S.skyP-.35)/.65;
+      for(let i=-3;i<=3;i++){
+        gx.beginPath();gx.arc(cx+i*(pW*.28),podMid+Math.sin(i*.6)*1.5,1.3,0,Math.PI*2);
+        gx.fillStyle=`rgba(255,215,140,${pa*.75})`;gx.fill();
+      }
+    }
+
+    // Antenna beacon
+    if(S.skyP>.45){
+      const ba=(S.skyP-.45)/.55,pulse=.5+.5*Math.sin(S.time*3.8);
+      const bg=gx.createRadialGradient(cx,yTip,0,cx,yTip,14*ba);
+      bg.addColorStop(0,`rgba(255,70,30,${ba*pulse*.95})`);bg.addColorStop(1,'rgba(255,40,10,0)');
+      gx.beginPath();gx.arc(cx,yTip,14*ba,0,Math.PI*2);gx.fillStyle=bg;gx.fill();
+      gx.beginPath();gx.arc(cx,yTip,2.5,0,Math.PI*2);gx.fillStyle=`rgba(255,130,70,${ba*(.6+pulse*.4)})`;gx.fill();
+    }
+
+    // Network beam rising from antenna into the sky
+    if(S.skyP>.60){
+      const na=(S.skyP-.60)/.40;
+      const beamH=gH*.22*na;
+      const bgrad=gx.createLinearGradient(cx,yTip,cx,yTip-beamH);
+      bgrad.addColorStop(0,`rgba(0,163,255,${na*.45})`);bgrad.addColorStop(.5,`rgba(0,120,200,${na*.18})`);bgrad.addColorStop(1,'rgba(0,80,160,0)');
+      gx.beginPath();gx.moveTo(cx-1.5,yTip);gx.lineTo(cx+1.5,yTip);gx.lineTo(cx+5,yTip-beamH);gx.lineTo(cx-5,yTip-beamH);
+      gx.fillStyle=bgrad;gx.fill();
+
+      // Traveling pulse up beam
+      const pT=(S.time*.55)%1;
+      const pY=yTip-(yTip-(yTip-beamH))*pT;
+      const palpha=na*(1-pT)*.85;
+      gx.beginPath();gx.arc(cx,pY,3.5,0,Math.PI*2);gx.fillStyle=`rgba(0,220,255,${palpha})`;gx.fill();
+      const pg2=gx.createRadialGradient(cx,pY,0,cx,pY,10);
+      pg2.addColorStop(0,`rgba(0,200,255,${palpha*.5})`);pg2.addColorStop(1,'rgba(0,100,200,0)');
+      gx.beginPath();gx.arc(cx,pY,10,0,Math.PI*2);gx.fillStyle=pg2;gx.fill();
+    }
+  }
+
+  function drawSkyGlow(){
+    const sp=S.skyP,groundY=gH*GND;
+    // Sky gradient above horizon
+    const sg=gx.createLinearGradient(gCX,groundY,gCX,groundY-gH*.55);
+    sg.addColorStop(0,`rgba(0,18,55,${sp*.8})`);sg.addColorStop(.35,`rgba(0,12,40,${sp*.5})`);sg.addColorStop(.75,`rgba(0,6,25,${sp*.25})`);sg.addColorStop(1,'rgba(0,4,15,0)');
+    gx.fillStyle=sg;gx.fillRect(0,groundY-gH*.55,gW,gH*.55);
+
+    // Horizon bloom — warm city light at ground line
+    const hg=gx.createLinearGradient(gCX,groundY+2,gCX,groundY-gH*.08);
+    hg.addColorStop(0,`rgba(0,30,80,${sp*.5})`);hg.addColorStop(1,'rgba(0,15,50,0)');
+    gx.fillStyle=hg;gx.fillRect(0,groundY-gH*.08,gW,gH*.10);
+
+    // Horizon line
+    const hl=gx.createLinearGradient(0,groundY,gW,groundY);
+    hl.addColorStop(0,'rgba(0,60,140,0)');hl.addColorStop(.25,`rgba(0,90,180,${sp*.35})`);hl.addColorStop(.5,`rgba(0,110,200,${sp*.45})`);hl.addColorStop(.75,`rgba(0,90,180,${sp*.35})`);hl.addColorStop(1,'rgba(0,60,140,0)');
+    gx.fillStyle=hl;gx.fillRect(0,groundY-1,gW,2);
+  }
+
+  function drawLake(){
+    const sp=S.skyP,groundY=gH*GND;
+    if(sp<=0)return;
+    // Water fill
+    const lk=gx.createLinearGradient(gCX,groundY,gCX,gH);
+    lk.addColorStop(0,`rgba(0,15,45,${sp*.9})`);lk.addColorStop(.5,`rgba(0,10,30,${sp*.7})`);lk.addColorStop(1,`rgba(0,6,20,${sp*.5})`);
+    gx.fillStyle=lk;gx.fillRect(0,groundY,gW,gH-groundY);
+    // Shimmer lines
+    for(let y=groundY+5;y<gH;y+=9){
+      const d=(y-groundY)/(gH-groundY);
+      gx.fillStyle=`rgba(0,60,140,${sp*.035*(1-d)})`;gx.fillRect(0,y,gW,1);
+    }
+    // CN Tower reflection column in water
+    const cx=gW*.37;
+    const rg=gx.createLinearGradient(cx,groundY,cx,gH);
+    rg.addColorStop(0,`rgba(0,90,180,${sp*.28})`);rg.addColorStop(1,'rgba(0,40,100,0)');
+    gx.beginPath();gx.moveTo(cx-3,groundY);gx.lineTo(cx+3,groundY);gx.lineTo(cx+9,gH);gx.lineTo(cx-9,gH);
+    gx.fillStyle=rg;gx.fill();
+    // Window light scatter in water
+    if(sp>.3){
+      const wa=(sp-.3)/.7;
+      WINDOWS.forEach(w=>{
+        if(rng()>.06)return; // sparse subset
+        const b=BLDGS[w.bi],prog=bprog(w.bi);if(prog<.3)return;
+        const bh=b.h*gH*prog,bw=b.w*gW,bx=b.x*gW-bw/2,by=gH*GND-bh;
+        const wx=bx+w.fx*bw,wy=by+w.fy*bh;
+        const refY=groundY+(groundY-wy)*.22; // compressed reflection
+        if(refY>gH)return;
+        const shimmer=.5+.5*Math.sin(S.time*1.2+w.ph+wx*.02);
+        gx.fillStyle=w.warm?`rgba(255,190,100,${wa*shimmer*.18})`:`rgba(160,210,255,${wa*shimmer*.12})`;
+        gx.fillRect(wx-1,refY-1,2,1);
+      });
+    }
+  }
+
+  // ── RENDER LOOP ─────────────────────────────────────────────────
+  function render(){
+    gx.clearRect(0,0,gW,gH);
+    if(S.gAlpha>.01) drawGlobe();
+    if(S.skyP>.01){
+      drawLake();
+      drawSkyGlow();
+      BLDGS.forEach((_,bi)=>drawBuilding(BLDGS[bi],bi));
+      drawWindows();
+      drawCNTower();
+    }
+    S.time+=.007;
     requestAnimationFrame(render);
   }
   render();
 
-  // GSAP: scroll-drive the globe
-  // Toronto lng=-79.4 → needs G.rot=79.4 to face viewer (lng+rot≈0)
-  // Start: G.rot=-15 (center on ~15°E — central Europe/Africa in view)
-  const tl=gsap.timeline({
-    scrollTrigger:{trigger:'#globe-section',start:'top top',end:'bottom bottom',scrub:2}
-  });
+  // ── GSAP SCROLL ─────────────────────────────────────────────────
+  // Toronto lng=-79.4 → G.rot needs to reach ~79 so lng+rot≈0 (faces viewer)
+  const tl=gsap.timeline({scrollTrigger:{trigger:'#globe-section',start:'top top',end:'bottom bottom',scrub:2}});
   tl
-    .to(G,{rot:79,duration:.72,ease:'power1.inOut'},0)
-    .to(G,{conv:1,duration:.5,ease:'power2.inOut'},.44)
-    .to(G,{scale:3,duration:.52,ease:'power2.in'},.48)
-    .to('#globe-text',{opacity:1,duration:.18,ease:'power2.out'},.14)
-    .to('#globe-text',{opacity:0,duration:.14,ease:'power2.in'},.76);
+    .to(S,{rot:79,  ease:'power1.inOut',duration:.72},0)
+    .to(S,{conv:1,  ease:'power2.inOut',duration:.50},.44)
+    .to(S,{scale:2.4,ease:'power2.in',  duration:.52},.46)
+    .to(S,{gAlpha:0,ease:'power1.in',  duration:.30},.68)
+    .to(S,{skyP:1,  ease:'power2.out', duration:.38},.63)
+    .to('#globe-text',{opacity:1,ease:'power2.out',duration:.18},.14)
+    .to('#globe-text',{opacity:0,ease:'power2.in', duration:.14},.74);
 })();
 
 // ── HERO ────────────────────────────────────────────────────────────
 gsap.timeline({delay:.25})
   .to('#hl',{opacity:1,duration:.9,ease:'power3.out'},0)
-  .to('#hn',{opacity:1,duration:1,ease:'power3.out'},.3)
+  .to('#hn',{opacity:1,duration:1, ease:'power3.out'},.3)
   .to('#hs',{opacity:1,duration:.9,ease:'power3.out'},.65)
   .to('#sc',{opacity:1,duration:.8},.15);
-
-gsap.to('#hn',{yPercent:-20,ease:'none',
-  scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.to('#hn',{yPercent:-20,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
 
 // ── CONTACT ─────────────────────────────────────────────────────────
 gsap.to('#ch',{opacity:1,y:0,duration:.9,ease:'power3.out',
